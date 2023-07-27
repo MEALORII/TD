@@ -7,4 +7,4 @@ Premier jet:
 
 A écrire:
 * **TD1** : Modèles de rupture fragile,  Jérémy Bleyer, Anne-Françoise Gourgues-Lorenzon
-* **TD3**
+* **TD5** : Approches variationnelles, Jérémy Bleyer, Corrado Maurini
