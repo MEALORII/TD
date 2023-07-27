@@ -1,7 +1,7 @@
 %% Do not edit unless you really know what you are doing.
-\documentclass[french,english,11pt]{exam}
+\documentclass[french,english,12pt]{exam}
 
-%\printanswers
+\printanswers
 
 \usepackage{../../latex/macro_mealor}
 \input{../../latex/template_td.tex}
@@ -58,14 +58,14 @@ $E = \SI{70}{GPa}$ et un coefficient de Poisson $\nu = 0.3$.
 L’analyse du problème comporte deux parties. La première porte sur la détermination du champ de contraintes au
 voisinage de l’extrémité de la fissure, car c’est lui qui pilotera son avancée et la ruine catastrophique de la structure.
 Elle se fera par une approche multi-échelle simplifiée, analytique, comportant les points suivants:
-\begin{enumerate}
+\begin{itemize}
 \item Détermination des contraintes dans le fuselage soumis à des pressions interne et externe;
 \item Calcul du champ de contraintes au bord du hublot en considérant celui-ci comme une cavité circulaire dans une
 plaque mince soumise à l’infini au champ précédent;
 \item Calcul du champ de contraintes au bord du trou de rivet considéré comme une cavité circulaire dans une plaque
 mince soumise à l’infini au champ généré autour le hublot.
 \item Détermination de la singularité des contraintes en pointe de fissure.
-\end{enumerate}
+\end{itemize}
 
 La deuxième partie porte sur l’étude de la propagation de la fissure au niveau du trou de rivet sous l’effet des cycles
 de pressurisation.
@@ -77,8 +77,16 @@ Nous allons déterminer par le raisonnement dit "du chaudronnier" le tenseur des
 considéré en première approximation comme un récipient cylindrique de révolution d’axe $\tenseur{e_z}$ fermé par deux calottes (par ex. hémisphériques) aux extrémités.
 
 \begin{questions}
-\question En première approximation, $\Sigma_{\theta\theta}$ et $\Sigma_{zz}$ sont pris uniformes dans l’épaisseur du fuselage. Montrer que l’on a $\Sigma_{\theta\theta} = 2 \Sigma_{zz} = (P_i -^P_e)R/e$ et que $\Sigma_{rr}$ peut être négligé par rapport aux autres composantes. \textit{On pourra raisonner sur l'équilibre global d'une coupe selon un plan de normale $\tenseur{e_z}$ puis de normale $\tenseur{e_x}$}.
-
+\question En première approximation, $\Sigma_{\theta\theta}$ et $\Sigma_{zz}$ sont pris uniformes dans l’épaisseur du fuselage. Montrer que l’on a $\Sigma_{\theta\theta} = 2 \Sigma_{zz} = (P_i - P_e)R/e$ et que $\Sigma_{rr}$ peut être négligé par rapport aux autres composantes. \textit{On pourra raisonner sur l'équilibre global d'une coupe selon un plan de normale $\tenseur{e_z}$ puis de normale $\tenseur{e_x}$}.
+\begin{solution}
+Il s'agit du problème classique de l'enveloppe cylindrique sous pression. En écrivant l'équilibre transverse d'une tranche de demi cylindre, on trouve d'abord
+$$ 2e \Sigma_{\theta \theta} = 2 R_i P_i - 2 R_e P_e \approx 2 R (P_i - P_e).$$
+En écrivant l'équilibre axial d'une des calottes de bout de fuselage, on trouve
+$$( \pi R_e^2 - \pi R_i^2) \Sigma_{zz} = P_i \pi R_i^2 -P_e  \pi R_i^2$$
+ce qui, pour de faibles épaisseurs, donne
+$$2e R  \sigma_{zz} = (P_i-P_e) R^2.$$
+Du fait de la grande valeur de $R/e$, la contrainte radiale qui est de l'ordre de $P_i$ peut être négligée par rapport aux deux autres valeurs. 
+\end{solution}
 \end{questions}
 
 \subsubsection{Analyse du voisinage du bord des hublots}
@@ -89,10 +97,161 @@ Pour une analyse approchée simple du champ de contraintes au voisinage des hubl
 hublot est grande par rapport à leur taille;
 \item  nous négligerons l’influence des trous des rivets, car ceux-ci sont de très petite taille par rapport au rayon du
 hublot;
-\item nous négligerons le rayon de courbure du fuselage (car rh) et supposerons les hublots inclus dans une
-plaque plane soumise à l’infini à un champ de contraintes $\sigma_\infty = \sigma_1 \tenseur{e_x} \otimes \tenseur{e_x} + \sigma_2 \tenseur{e_y} \otimes \tenseur{e_y}$ avec $\sigma_1 = \Sigma_{zz}$
-et $\sigma_2 = \Sigma_{\theta\theta}$ (on note $(\tenseur{e_x} , \tenseur{e_y}$ ) les vecteurs du plan correspondant à $(\tenseur{e_z},\tenseur{e_\theta}$) dans la géométrie du cylindre de
+\item nous négligerons le rayon de courbure du fuselage (car $r_h\ll R$) et supposerons les hublots inclus dans une
+plaque plane soumise à l’infini à un champ de contraintes :
+\begin{equation}
+\sigma^\infty = \sigma_1 \tenseur{e_X} \otimes \tenseur{e_X} + \sigma_2 \tenseur{e_Y} \otimes \tenseur{e_Y}
+\label{eq:plaque-infinie-biaxial}
+\end{equation}
+avec $\sigma_1 = \Sigma_{zz}$ et $\sigma_2 = \Sigma_{\theta\theta}$ (on note $(\tenseur{e_X} , \tenseur{e_Y}$) les vecteurs du plan correspondant à $(\tenseur{e_z},\tenseur{e_\theta}$) dans la géométrie du cylindre de
 révolution).
-\item on se placera en situation de contraintes planes, i.e. $\sigma_{zz} = 0$, $\sigma$ indépendant de $z$ (car $|\Sigma_{rr}| \ll \Sigma_{zz}$).
+\item on se placera en situation de contraintes planes, i.e. $\sigma_{zz} = 0$, $\tenseur{\sigma}$ indépendant de $z$ (car $|\Sigma_{rr}| \ll \Sigma_{zz}$).
 \end{itemize}
+
+ Le problème de la plaque plane élastique  en contrainte plane, de dimension infinie 
+percée d'un trou circulaire de rayon $a$ et soumise à l'infini au champ de 
+contrainte $\tenseur{\sigma} ^\infty  =\sigma _\infty
+\tenseur{e_X}\otimes \tenseur{e_X}$ admet une solution analytique\footnote{Cette solution s'obtient classiquement par l'usage d'une fonction d'Airy.} qui est donnée en coordonnées cylindriques liées au trou par
+\begin{subequations}
+\begin{eqnarray}
+&& \sigma_{rr} = \frac{\sigma_\infty}{2}\left(1-\frac{a^2}{r^2}\right)+ \frac{\sigma_\infty}{2}\left(1+ \frac{3a^4}{r^4}-\frac{4a^2}{r^2}\right) \cos (2\theta),\\
+&& \sigma_{\theta \theta} = \frac{\sigma_\infty}{2}\left(1+\frac{a^2}{r^2}\right)- \frac{\sigma_\infty}{2}\left(1+ \frac{3a^4}{r^4}\right) \cos (2\theta),\\
+&& \sigma_{r\theta} = - \frac{\sigma_\infty}{2}\left(1- \frac{3a^4}{r^4}+\frac{2a^2}{r^2}\right) \sin(2\theta), \\
+&& \sigma_{rz}= \sigma_{\theta z}= \sigma_{zz} =0.
+\end{eqnarray}
+\label{eq:solution-traction-uniaxiale}
+\end{subequations}
+
+\begin{questions}
+\question Vérifier que cette solution satisfait bien les conditions aux limites en bord de trou et à l'infini.  Quel champ de contraintes prédit-elle en bord de trou pour un chargement uniaxial?
+\begin{solution}
+Bien que ce n'était pas demandé, on pourra faire remarquer que le champ proposé vérifie bien l'équilibre local $\divergence{ \tenseur{\sigma}}=0$. De plus, on trouve en bord de trou $r=a$:
+$$\tenseur{\sigma} = \sigma_\infty (1- 2 \cos (2 \theta)) \tenseur {e}_\theta \otimes \tenseur{e}_\theta,$$ 
+qui vérifie bien la condition de bord libre $\tenseur{\sigma} \cdot \tenseur{e}_r = 0$.
+
+\`A l'infini, il reste
+$$
+\tenseur{\sigma} = \frac{\sigma_\infty}{2}( (1 + \cos (2 \theta)) \tenseur{e}_r \otimes \tenseur{e}_r+ (1 - \cos (2 \theta)) \tenseur{e}_\theta \otimes \tenseur{e}_\theta  - \sin (2 \theta) ( \tenseur{e}_r \otimes \tenseur{e}_\theta + \tenseur{e}_\theta \otimes \tenseur{e}_r))
+= \sigma_\infty \tenseur{e}_X \otimes \tenseur{e}_X
+$$
+après développement de $\tenseur{e}_r$ en $\tenseur{e}_r = \tenseur{e}_X \cos \theta + \tenseur{e}_Y \sin \theta$ et  de $\tenseur{e}_\theta$ en $\tenseur{e}_\theta = -\tenseur{e}_X \sin \theta + \tenseur{e}_Y \cos \theta$.
+
+Cette solution équilibre la contrainte axiale à l'infini par une contrainte orthoradiale en bord de trou. On constate que pour $\theta=0,\pi$, on a une compression $\sigma_{\theta\theta}(r=a)=-\sigma_\infty$ tandis qu'en $\theta=\pm\pi/2$, on a une traction $\sigma_{\theta\theta}(r=a)=3\sigma_\infty$, c'est à dire un facteur de concentration de contrainte de 3.
+\end{solution}
+
+\question Déterminer le champ solution pour le chargement \eqref{eq:plaque-infinie-biaxial} et analyser l'état de contrainte en bord de hublot.
+\begin{solution}
+Par superposition, la solution est obtenue en combinant une traction uniaxiale d'intensité $\sigma_1$ selon $\tenseur{e}_X$ ainsi qu'une traction uniaxiale d'intensité $\sigma_2$ selon $\tenseur{e}_Y$.
+Pour le chargement selon $\tenseur{e}_X$, la solution correspond à \eqref{eq:solution-traction-uniaxiale} en remplaçant $\sigma_{\infty}$ par $\sigma_1$.
+
+Pour le chargement selon $\tenseur{e}_Y$, la solution est obtenue à partir de \eqref{eq:solution-traction-uniaxiale} en remplaçant $\sigma_{\infty}$ par $\sigma_2$ et $\theta$ par $\pi/2-\theta$, soit:
+\begin{eqnarray*}
+&& \sigma_{rr} = \frac{\sigma_2}{2}\left(1-\frac{a^2}{r^2}\right)- \frac{\sigma_2}{2}\left(1+ \frac{3a^4}{r^4}-\frac{4a^2}{r^2}\right) \cos (2\theta),\\
+&& \sigma_{\theta \theta} = \frac{\sigma_2}{2}\left(1+\frac{a^2}{r^2}\right)+\frac{\sigma_2}{2}\left(1+ \frac{3a^4}{r^4}\right) \cos (2\theta),\\
+&& \sigma_{r\theta} = - \frac{\sigma_2}{2}\left(1- \frac{3a^4}{r^4}+\frac{2a^2}{r^2}\right) \sin(2\theta), \\
+&& \sigma_{rz}= \sigma_{\theta z}= \sigma_{zz} =0.
+\end{eqnarray*}
+
+En bord de hublot, on a alors:
+$$\tenseur{\sigma} = \sigma_1 (1- 2 \cos (2 \theta)) + \sigma_2(1+2\cos(2\theta)) \tenseur {e}_\theta \otimes \tenseur{e}_\theta
+$$
+soit avec $\sigma_1=\Sigma_{zz}=\Delta P R/2e$ et $\sigma_2 = \Sigma_{\theta\theta}=\Delta P R/e$:
+$$\tenseur{\sigma} = \Delta P \dfrac{R}{e}\left(\dfrac{3}{2}+ \cos (2 \theta)\right) \tenseur {e}_\theta \otimes \tenseur{e}_\theta
+$$
+La traction est maximale en $\theta=0$ et vaut $\sigma_\text{hublot} = \dfrac{5}{2}\Delta P \dfrac{R}{e}$. Nous voyons ainsi que
+le hublot joue un rôle de concentration de contraintes (avec un facteur 5/2).
+\end{solution}
+\end{questions}
+
+\subsection{Analyse du voisinage du bord des trous des rivets}
+Les trous de rivets ont un diamètre de 5mm. Ils sont placés à 2cm du bord du trou du hublot qui a lui-même un rayon de 15cm. Le trou de rivet le plus sollicité se trouve sur l'axe réel ($\underline{OM}=X\tenseur{e}_X,\;\;X\ge r)$. C'est donc ce trou que nous allons étudier.
+ 
+En première approximation, nous pouvons supposer que ce trou de rivet est suffisamment loin du bord du trou du hublot pour ne pas être influencé par celui-ci. Nous pouvons donc en première approximation considérer la solution d'une plaque infinie percée d'un trou circulaire soumise à l'infini au champ de contrainte $\tenseur{\sigma} ^\infty =\sigma_\text{hublot} \tenseur{e}_Y\otimes 
+\tenseur{e}_Y$. 
+
+En se plaçant dans le repère cylindrique associé au rivet, calculer la valeur maximale de la traction orthoradiale $\sigma_{\theta \theta} $ en bord de rivet
+$\sigma_\text{rivet} = \max_{\theta} \sigma_{\theta \theta}(a) $. Effectuer l'application numérique.
+
+\begin{solution}
+On est ici dans le cas d'une plaque infini à trou circulaire chargée à l'infini par une traction uniaxiale $\sigma_\infty=   \sigma_\text{hublot}$. D'après la solution analytique proposée, la tenseur des contraintes en bord de rivet a pour composante unique
+$$
+ \sigma_{\theta \theta} =\sigma_\text{hublot}(1+2 \cos 2 \theta)
+$$  
+qui est maximale en $\theta =0,\pi$, soit perpendiculairement au chargement appliqué, et qui a pour valeur $$\sigma_\text{rivet}= 3 \sigma_\text{hublot} = \dfrac{15}{2} \Delta P \dfrac{R}{e} \approx \SI{585}{MPa}.$$            
+
+Ainsi le trou de rivet joue le rôle d’un second ”concentrateur de contraintes”. Le facteur de concentration de
+contraintes est maintenant de 15/2. C’est en ce point particulièrement sollicité de la structure que l’initiation et la
+propagation d’une micro-fissure est la plus probable et la plus dangereuse.
+
+Notons également que la valeur numérique trouvée pour la contrainte est relativement élevée et peut potentiellement mettre en défaut l'hypothèse d'une étude dans le régime élastique linéaire.
+\end{solution}
+
+\section{Propagation de défaut critique}
+Le bord de rivet est donc la région la plus sollicitée de la structure. Nous considérons la présence d'un défaut initialement sous la forme d'une fissure débouchant dans le rivet et de taille $a_0=\SI{30}{\micro\meter}$.
+\begin{questions}
+\question Quelle est la position et l'orientation de la fissure la plus défavorable pour la ruine de la structure ?
+\begin{solution}
+Le cas le plus défavorable correspond à une sollicitation de la fissure en mode I pur. Le rivet étant chargé par une traction selon $\tenseur{e}_Y$, le cas le plus défavorable correspond donc à une fissure située en $\theta=0,\pi$ et alignée suivant $\tenseur{e}_X$.
+\end{solution}
+
+\question Nous admettrons que pour une fissure de longueur $a$ débouchant au bord d'une plaque rectangulaire et soumise à une traction parallèle
+au bord de la plaque d’intensité $\sigma$, le facteur d’intensité des contraintes vaut approximativement
+\begin{equation}
+K_I = 1.12\sigma\sqrt{\pi a}
+\end{equation}
+Justifier que ce même facteur d'intensité de contraintes peut-être utilisé pour analyser la singularité de contrainte en pointe de la fissure.
+\begin{solution}
+Il s'agit de la même situation à la différence du fait que le bord libre est courbe (rivet circulaire) et non pas droit comme dans la plaque rectangulaire. Cependant, le diamètre du rivet vaut $\phi=\SI{5}{mm} \gg a_0$ ce qui fait qu'on peut négliger l'effet du rayon de courbure du bord libre devant la taille de la fissure. On a donc:
+$$K_I = 1.12\sigma_\text{rivet}\sqrt{\pi a_0} $$
+\end{solution}
+
+\question La ténacité du matériau $K_c$ correspondant au seuil de propagation de fissure vaut $K_c =\SI{40}{MPa.m^{1/2}}$. La fissure de taille $a_0$ peut-elle se propager de manière brutale ? Sinon, quelle serait la taille $a_c$ du défaut critique à considérer conduisant à une rupture brutale du fuselage ?
+\begin{solution}
+On trouve ici $K_I \approx \SI{6.36}{MPa.m^{1/2}}$, soit $K_I < K_c$. La fissure ne peut donc pas se propager. On notera qu'on suppose implicitement que la propagation, si elle a lieu, est instable. 
+
+La taille maximale du défaut critique à considérer menant à la propagation est donc telle que:
+$$
+K_c = 1.12\sigma_\text{rivet}\sqrt{\pi a_c} = K_I(a_0)\sqrt{\dfrac{a_c}{a_0}}
+$$
+soit:
+$$a_c = a_0 \left(\dfrac{K_c}{K_I(a_0)}\right)^2 \approx \SI{1.19}{mm}$$
+
+On pourra remarquer qu'un tel défaut est difficilement visible à l'oeil nu.
+\end{solution}
+\end{questions}
+
+\section{Analyse de la ruine par fatigue}
+Sous chargement cyclique, les fissures croissent à chaque cycle de chargement par fatigue. Dans le cas de l'aluminium, l’accroissement de longueur de fissure par cycle (noté $\frac{da}{dN}$) est donné par la loi de Paris:
+\begin{equation}
+\dfrac{da}{dN}
+= \beta(\Delta K)^3
+\end{equation}
+avec $\beta=3.10^{-28}\,\unit{Pa^{-3}.m^{-1/2}/cycle}$ et où $\Delta K$ désigne l'amplitude de variation du facteur d'intensité de contrainte sur un cycle. 
+
+\begin{questions}
+\question Caractériser comment un défaut de taille $a_0$ peut conduire à la ruine de la structure après un certain nombre de vols.
+\begin{solution}
+\`A chaque décollage de l'avion, la différence de pression lors d'un cycle passe de 0 à $\Delta P$. Cela induit une variation de facteur d'intensité de contrainte $\Delta K(a) =  1.12\sigma_\text{rivet}\sqrt{\pi a}$ pour une fissure de taille $a$. Démarrant initialement à la longueur $a=a_0$, celle-ci va croître à chaque cycle d'une quantité $\beta(\Delta K(a))^3$ selon la loi de Paris. Après un certain nombre $N_c$ de décollages, la fissure atteindra finalement la taille critique $a_c$ conduisant à la rupture brutale du fuselage.
+\end{solution}
+
+\question Par intégration de la loi de Paris, déterminer le nombre $N_c$ de décollages de l’avion jusqu’à la destruction du fuselage par progression brutale de la fissure.
+\begin{solution}
+En réarrageant la loi de Paris, on a:
+$$ \dfrac{da}{\beta (\Delta K(a))^3} = dN$$
+$N_c$ correspond alors à une évolution de longueur de fissure allant de $a_0$ à $a_c$, soit:
+
+\begin{eqnarray*}
+&& \int_{a_0}{a_c} \dfrac{da}{\beta (\Delta K(a))^3} = \int_0^{N_c}dN = N_c\\
+&& \dfrac{a_0^{3/2}}{\beta K_I(a_0)^3} \int_{a_0}^{a_c} a^{-3/2}da = N_c\\
+&& \dfrac{a_0^{3/2}}{\beta K_I(a_0)^3}\left(\dfrac{2}{\sqrt{a_0}}-\dfrac{2}{\sqrt{a_c}}\right)=N_c 
+\end{eqnarray*}
+On trouve donc:
+$$N_c = \dfrac{2a_0}{\beta K_I(a_0)^3}\left(1-\sqrt{\dfrac{a_0}{a_c}}\right)$$.
+\end{solution}
+\question Faire l’application numérique pour estimer $N_c$ et comparer au nombre de décollages recensés avant les accidents.
+\begin{solution}
+On trouve ici $N_c\approx 653$ cycles soit une estimation légèrement inférieure (mais du bon ordre de grandeur) au nombre de 750 décollages effectifs recensés.
+\end{solution}
+\end{questions}
+
 \end{document}
