@@ -1,0 +1,57 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % accents codÃ©s dans la fonte
+%\usepackage{layout}
+\usepackage{a4wide}
+\usepackage{hyperref}
+
+\usepackage{graphicx}
+
+\usepackage{newpxtext,newpxmath}
+\usepackage{siunitx}
+
+%\setlength{\hoffset}{0pt}
+%\setlength{\oddsidemargin}{-1cm}   % Marge gauche sur pages impaires
+%\setlength{\evensidemargin}{-1cm}   % Marge gauche sur pages paires
+%\setlength{\marginparwidth}{0cm}   % Largeur de note dans la marge
+%\setlength{\textwidth}{16cm}   % Largeur de la zone de texte (17cm)
+\setlength{\voffset}{0pt}   % Bon pour DOS
+\setlength{\marginparsep}{0pt}   % SÃÂ©paration de la marge
+\setlength{\topmargin}{0cm}   % Pas de marge en haut
+\setlength{\headheight}{0cm}   % Haut de page
+\setlength{\headsep}{0cm}   % Entre le haut de page et le texte
+%\setlength{\footskip}{1cm}   % Bas de page + sÃÂ©paration
+%\setlength{\textheight}{25.5cm}   % Hauteur de la zone de texte (25cm)
+
+\usepackage{indentfirst}
+
+
+\newcommand{\classurl}{\url{1}}
+% #1 numÃ©ro de la feuille
+% #2 titre de la feuille
+\newcommand{\titre}[3] {%\textit{
+  \begin{center}\textbf{\textsc{MEALOR II}}\\ \textit{Mécanique de l'endommagement et approche locale de la rupture}%\let\thefootnote\relax\footnotetext{\classurl} 
+  \end{center}
+ 
+  \noindent TD n\textdegree #1 \hfill  August 2023\\[-0.3cm]
+  \rule{\linewidth}{.3mm}
+  \vspace*{0.5pt}
+  \begin{center}
+    {
+      \Large \bfseries { #2}
+    }\\
+    \vspace*{0.5cm}
+	\large #3
+    \vspace*{0.5cm}
+  \end{center}
+}
+
+\usepackage{xcolor}
+
+\SolutionEmphasis{\normalfont\color{blue}}
+
+\newenvironment{objectifs}
+    {\itshape\underline{Objectifs:}\begin{itemize}
+    }
+    { \itshape
+    \end{itemize}
+    }
