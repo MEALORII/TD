@@ -55,3 +55,10 @@
     { \itshape
     \end{itemize}
     }
+    
+\newcounter{Rfig}
+\newenvironment{R_figure}
+   {\begin{minipage}{\linewidth}\begin{center}\vspace{0.5mm}\stepcounter{Rfig}\addtocounter{figure}{-1}\renewcommand\thefigure{R-\arabic{Rfig}}}
+   {\end{center}\vspace{0.5mm}\end{minipage}}
+   
+   
