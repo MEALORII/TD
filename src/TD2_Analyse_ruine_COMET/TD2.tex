@@ -6,7 +6,7 @@
 \usepackage{../../latex/macro_mealor}
 \input{../../latex/template_td.tex}
 \graphicspath{{./pic/}}
-
+\usepackage{subcaption}
 \begin{document}
 \thispagestyle{empty}
 \titre{2}{Analyse de la ruine d'une structure}{Jérémy Bleyer, Véronique Lazarus}
@@ -38,9 +38,24 @@ recensés avant les accidents.
 
 \section*{Données du problème}
 
+\begin{figure}
+\begin{center}
+\begin{subfigure}[b]{0.49\textwidth}
+\includegraphics[width=\textwidth]{geometry_simplified}
+\caption{Géométrie simplifiée: fuselage, hublots et rivets}\label{fig:geometrie}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.49\textwidth}\centering
+\includegraphics[width=0.8\textwidth]{multiscale}
+\caption{Analyse multi-échelles}\label{fig:analyse}
+\end{subfigure}
+\end{center}
+\caption{Modélisation du problème}
+\end{figure}
+
 \subsection*{Géométrie}
-On modélise le fuselage de l’avion par une enveloppe cylindrique fermée à ses deux extrémités (fig. 2(a)). Sa
-partie courante est de rayon $R = \SI{3}{m}$ et d’épaisseur $e = \SI{2}{mm}$. Le fuselage est percé de hublots circulaires de rayon $r_h = \SI{15}{cm}$. La distance entre les hublots est de l’ordre de \SI{1.5}{m}. Les hublots sont fixés par des rivets placés dans des trous du fuselage, de diamètre $\phi = \SI{5}{mm}$, dont les centres sont à \SI{2}{cm} du bord du trou du hublot. Le bord du trou d’un rivet peut comporter une fissure initiale dont la taille est liée à celle des grains constituant le matériau. Nous supposerons que la fissure peut avoir une longueur initiale $a_0 = \SI{30}{\micro\meter}$ (fig. 2(b)).
+On modélise le fuselage de l’avion par une enveloppe cylindrique fermée à ses deux extrémités (fig. \ref{fig:geometrie}). Sa
+partie courante est de rayon $R = \SI{3}{m}$ et d’épaisseur $e = \SI{2}{mm}$. Le fuselage est percé de hublots circulaires de rayon $r_h = \SI{15}{cm}$. La distance entre les hublots est de l’ordre de \SI{1.5}{m}. Les hublots sont fixés par des rivets placés dans des trous du fuselage, de diamètre $\phi = \SI{5}{mm}$, dont les centres sont à \SI{2}{cm} du bord du trou du hublot. Le bord du trou d’un rivet peut comporter une fissure initiale dont la taille est liée à celle des grains constituant le matériau. Nous supposerons que la fissure peut avoir une longueur initiale $a_0 = \SI{30}{\micro\meter}$ pour cet alliage d'aluminium.
 
 \subsection*{Chargement}
 Le chargement à prendre en compte pour l’étude de la propagation des fissures est constitué par les pressions interne
@@ -57,7 +72,7 @@ $E = \SI{70}{GPa}$ et un coefficient de Poisson $\nu = 0.3$.
 
 L’analyse du problème comporte deux parties. La première porte sur la détermination du champ de contraintes au
 voisinage de l’extrémité de la fissure, car c’est lui qui pilotera son avancée et la ruine catastrophique de la structure.
-Elle se fera par une approche multi-échelle simplifiée, analytique, comportant les points suivants:
+Elle se fera par une approche multi-échelle simplifiée (cf. fig. \ref{fig:analyse}), analytique, comportant les points suivants:
 \begin{itemize}
 \item Détermination des contraintes dans le fuselage soumis à des pressions interne et externe;
 \item Calcul du champ de contraintes au bord du hublot en considérant celui-ci comme une cavité circulaire dans une
