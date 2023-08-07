@@ -2,9 +2,11 @@
 \usepackage[T1]{fontenc} % accents codÃ©s dans la fonte
 %\usepackage{layout}
 \usepackage{a4wide}
+%\usepackage[french]{babel}
 \usepackage{hyperref}
 
 \usepackage{graphicx}
+\usepackage{caption}
 
 \usepackage{newpxtext,newpxmath}
 \usepackage{siunitx}
@@ -46,8 +48,9 @@
 }
 
 \usepackage{xcolor}
-
-\SolutionEmphasis{\normalfont\color{blue}}
+\definecolor{Blue}{RGB}{0,68,170}
+\SolutionEmphasis{\normalfont\color{Blue}}
+\DeclareCaptionFont{blue}{\color{Blue}}
 
 \newenvironment{objectifs}
     {\itshape\underline{Objectifs:}\begin{itemize}
@@ -58,7 +61,16 @@
     
 \newcounter{Rfig}
 \newenvironment{R_figure}
-   {\begin{minipage}{\linewidth}\begin{center}\vspace{0.5mm}\stepcounter{Rfig}\addtocounter{figure}{-1}\renewcommand\thefigure{R-\arabic{Rfig}}}
+   {\begin{minipage}{\linewidth}\begin{center}\vspace{0.5mm}\stepcounter{Rfig}\addtocounter{figure}{-1}\renewcommand\thefigure{R-\arabic{Rfig}}
+   \captionsetup{font=blue}}
    {\end{center}\vspace{0.5mm}\end{minipage}}
    
+    
+\newcounter{Rtab}
+\newenvironment{R_table}
+   {\begin{minipage}{\linewidth}\begin{center}\vspace{0.5mm}\stepcounter{Rtab}\addtocounter{table}{-1}\renewcommand\thetable{R-\arabic{Rtab}}
+   \captionsetup{font=blue}
+}
+   {\end{center}\vspace{0.5mm}\end{minipage}}
    
+      
