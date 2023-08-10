@@ -1,0 +1,333 @@
+%% Do not edit unless you really know what you are doing.
+\documentclass[french,english,12pt]{exam}
+
+%\printanswers
+\usepackage{tikz}
+\usepackage{tikz}
+\usepackage{../../latex/macro_mealor}
+\usepackage{../../latex/structuralanalysis}
+\input{../../latex/template_td.tex}
+\graphicspath{{./pic/}}
+\usepackage{subcaption}
+\begin{document}
+\thispagestyle{empty}
+\titre{2}{Les modèles variationnelles de rupture en 1d: barre en traction}{Jérémy Bleyer, Corrado Maurini}
+%\maketitle
+\begin{objectifs}
+\item Manipuler les conditions d'optimalité d'une fonctionnelle et appliquer l'approche variationnelle à la rupture dans le cas 1d
+\item Déterminer l'évolution quasi-statique d'un modèle d'endommagement
+\item Comprendre l'origine des contraintes limites et de la ténacité dans les modèles d'endommagement à gradient.
+\item Assimiler les bases des modèles de rupture de type champs de phase avant la mise en ouvre numérique.
+\item Construire des solutions de référence pour la vérification d'un code numérique de type champs de phase.
+\end{objectifs}
+
+\section*{Contexte}
+Les modèles variationnelle à rupture sont à la base des approches de type champs de phase pour la simulation numérique des phénomènes de rupture fragile. 
+Dans cet exercice on se propose de retrouver les propriétés fondamentales de ces modèles dans le cadre simplifié d'une barre en traction. 
+
+
+\begin{figure}[h!]
+\begin{center}
+    \begin{tikzpicture}
+    \point{a}{0}{0};
+    \point{b}{6}{0};
+    \point{e}{6.1}{0};
+    \point{d}{7.5}{0};
+    \point{c}{3}{0};
+    \support{3}{a}[-90];
+    %\support{3}{b}[90];
+    \beam{2}{a}{b}[0][1];
+    \dimensioning{3}{e}{d}{.0}[$u(L)=t\,L$];
+    %\notation{1}{c}{$\epsilon_0(t)=-t<0$}[above];
+    \dimensioning{1}{a}{b}{-1.}[$L$];
+    %\load{1}{d}[180]
+    %\notation{3}{a}{b}[$i$];
+    %\temperature{a}{b}{-.5}{.5};
+    \end{tikzpicture}
+\end{center}
+    \caption{Barre en traction avec déplacement imposé à l'extrémité.}\label{fig:barre}
+\end{figure}
+On considère une barre encastrée en $x=0$ et avec un déplacement imposé $u(L)=t\,L$ en  $x=L$.
+$x=L$.  On note par $E_0$ le module de Young du matériau
+constituant la barre (dans son état non endommagé), $G_c$ sa
+ténacité, $S$ la
+surface de la section droite et $L$ la longueur. Dans la suite on étudie le
+problème de rupture de la barre avec un modèle de Griffith et un modèle
+d'endommagement à gradient.
+
+\section{Solution élastique : approche variationnelle}
+On suppose ici que la barre soit élastique linéaire. On se propose de déterminer la solution de ce problème simple avec l'approche variationnelle de l'élasticité.
+
+L'énergie potentielle élastique de la barre est 
+\begin{equation}
+	\mathcal P(u)=\int_\Omega \frac{E_0S}{2}\left(
+	\frac{du}{dx}
+		(x)\right)^2 dx
+	\label{eq:energie-elastique}
+\end{equation}
+où $u:x\in\Omega\equiv[0,L]\to u(x)\in\mathcal R$   le déplacement axial de la
+barre.
+Le problème de recherche de configurations d'équilibre peut être formulée comme problème de minimisation de l'énergie. La configuration d'équilibre $u$ doit être celle qui minimise l'énergie parmi toutes les configurations admissibles $\hat u \in\mathcal{C}_t$, où $\mathcal{C}_t$ est l'espace des configurations admissibles :
+\begin{equation}
+u\in\mathcal{C}_t: \,\mathcal{P}(u+h(\hat u-u))-\mathcal
+{P}(u)\geq 0,\forall \hat u\in\mathcal C_t.
+\label{eq:energy-variation}
+\end{equation}
+L'éspace de configuration admissibles est donné par les fonctions qui respectent les conditions aux limites de Dirichlet et qui sont assez régulières pour que $\mathcal{P}(u)\leq +\infty$:
+\begin{questions}
+    \question 
+    Donner l'expression de $\mathcal{C}_t$ pour la barre de figure~\ref{fig:barre} et monter, avec une développement limité en $h$ de la variation de l'énergie~\eqref{eq:energy-variation} que une configuration d'équilibre doit satisfaire la condition suivante, formulation faible du problème d'élasticité:
+    \begin{equation}
+        D_u\mathcal{P}(u)(v)=0,\quad \forall v\in \mathcal{C}_0
+        \label{eq:elasticite-foc}
+    \end{equation}
+    où on note 
+    $$
+    D_u\mathcal{P}(u)(\hat u):=\left.\dfrac{d}{dh}\mathcal{P}(u+hv)\right\vert_{h=0}
+    $$
+    et donner pour notre exemple l'expression de 
+    $\mathcal{C}_0$, définie comme l'éspace vectorielle des variations admissibles, constituées par les différences entre fonctions admissibles.
+    \question Calculer $D_u\mathcal{P}(u)(v)$ et montrer que la condition~\eqref{eq:elasticite-foc} implique la condition d'équilibre
+    \begin{equation}
+        \frac{d}{dx}\sigma(x)=0,\quad \text{avec}\quad\sigma=E_0S\frac{d u}{dx}(x).
+        \label{eq:equilibre}
+    \end{equation}
+    \question Déterminer les champs de déplacement $u_t$ et contrainte $\sigma_t$ solution du problème.  Montrer que l'énergie potentielle à l'équilibre en fonction du chargement est :
+    \begin{equation}
+        \mathcal{P}(u_t)=\min_{u\in\mathcal{C}_t}\mathcal{P}(u)=E_0S\,L\,\frac{t^2}{2}
+        \label{eq:energie-elastique-sol}
+    \end{equation} 
+    \begin{solution}
+        L'équation d'équilibre donne :
+    $$
+    E_0S\left(\frac{du_t}{dx}(x)\right)=\sigma_t\Rightarrow \frac{du_t}{dx}(x)=\frac{\sigma_t}{E_0S}\Rightarrow u_t =\left(\frac{\sigma_t}{E_0S}\right)x+u(0)
+    $$
+    En utilisant les conditions aux limites $u\in\mathcal C_t\rightarrow u(0)=0,u(L)=t\,L$ on trouve l'unique solution
+    $$
+    u_t=t x,\quad \sigma_t=E_0S\,t
+    $$
+    En remplaçant dans l'énergie potentielle~\eqref{eq:energie-elastique} on trouve~\eqref{eq:energie-elastique-sol}.
+    \end{solution}
+\end{questions}
+
+\section{Modèle de Griffith}
+Dans un modèle de type "interphase franche" de rupture à la Griffith, les fissures un ensemble de points $\Gamma\equiv\{\bar x_i\}_{i=1}^n$ où les déplacements peuvent être discontinus.  
+On considère ici pour la barre un modèle de Griffith monodimensionnel,
+caractérisée par l'énergie totale
+\begin{equation}
+	\quad \mathcal{E}_G(u,n)=\int_{\Omega\setminus\Gamma} E_0S\left(
+	\frac{du}{dx}
+		(x)\right)^2 dx + G_c\,S \,n
+	\label{minprob}
+\end{equation}
+où $u:x\in[0,L]\to u(x)\in\mathcal R$ représente  le déplacement axial de la
+barre et $n$ le nombre des fissures. 
+L'approche variationnelle de la rupture (Francfort-Marigo 1998) défini la solution du problème comme le minimum globale de l'énergie $\mathcal{E}_G(u,n)$, sous une contrainte d'irréversibilité pour les fissures.
+
+
+\begin{questions}
+\question En utilisant les résultats de la section précedente, calculer $\mathcal{E}_G(u,0)$ et $\mathcal{E}_G(u,1)$ en fonction de $t$. Calculer le chargement critique $t_G$ pour la fissuration de la barre selon ce modèle. Discuter de la pertinence physique de ce modèle de nucléation. 
+\begin{solution}
+    $$\mathcal{E}_G(u,0)=\dfrac{t^2}{2}{E_0 S}L,\quad \mathcal{E}_G(u,1)=G_c S
+    \quad\Rightarrow\quad t_G=\sqrt{\dfrac{2G_c}{E_0SL}}$$
+    La dépendance de la charge critique par rapport à la longueur de la barre n'est pas raisonnable. On a un chargement critique infini (et contraintes infinies) pour $L\to 0$ et nul pour $L\to\infty$. 
+\end{solution}
+
+\end{questions}
+
+
+\section{Modèle d'endommagement à gradient}
+%\begin{figure}[htbp]
+%	\begin{center}
+%		\includegraphics[width=.4\textwidth]{barre1D}
+%\caption{default}
+%		\label{default}
+%	\end{center}
+%\end{figure}
+On étudie le problème d'évolution de la barre en figure~\ref{fig:barre} avec un modèle d'endommagement à gradient en 1d et une approche énergétique.  On considère le problème d'évolution à temps discret, avec $t_i=i\,\Delta t$ et un pas $\Delta t>0$ constant. Soit $u_i:x\in[0,L]\to\mathcal R$, $\alpha_i:x\in[0,L]\to\mathcal R$ le champ de déplacement axial et d'endommagement à l'instant $t_i$.
+En $t=0$ la barre est à endommagement nul, $\alpha_0=0$. 
+On suppose le champs d'endommagement libre aux bords. A l'instant $t_i=
+i\,\Delta t$, l'état $(u_i,\alpha_i)$ de la barre est donné par la solution du
+problème suivaint de minimisation locale directionnelle :
+
+Déterminer $u_i\in \mathcal C_i,\;\alpha_i\in\mathcal{D}(\alpha_{i-1})$ tels que 
+$\forall \hat u\in\mathcal{C}_i$,
+$\forall \hat \alpha\in\mathcal{C}(\alpha_{i-1})$,
+$\exists \bar h\geq 0$: 
+\begin{equation}
+    \boxed{
+	\mathcal{E}(u_i+h(\hat u-u_i),{\alpha_i+h(\hat \alpha-\alpha_i)})-\mathcal{E}(u_i,{\alpha_i})\geq 0,\quad \forall h\in(0, \bar h)
+	\label{minprob}
+    }
+\end{equation}
+où
+\begin{equation}
+	\mathcal{E}_{\ell}(u,{\alpha})=\left(
+	\int_{0}^L \dfrac{E_0}{2}  \, a({\alpha(x)})\,\left(\dfrac{du}{dx}
+		(x)\right)^2+
+	\,w_1 \,\left({w({\alpha})}+{\ell^2}\, {\left(\dfrac{d\alpha}
+						{dx}
+						(x)\right)^2}\right)\right)dx,
+						\label{eq:energy}
+\end{equation}
+%et $\mathcal{U}_i\equiv\{u: u(0)=0,\; u(L)=0\} $,  $\mathcal{D}_i\equiv
+% \{\alpha: \alpha\geq\alpha_{i-1}\;\forall x\in[0,L]\} $,
+$E_0$ étant le module de Young de la barre saine, $\ell$ la longueur interne.
+La constante $w_1$ représente l'énergie dissipée pour unité de volume dans le
+modèle d'endommagement.
+On considère dans la suite le modèle d'endommagement caractérisé par
+\begin{equation}
+	a(\alpha)=(1-\alpha)^2,\qquad w(\alpha)=\alpha.
+	%	a(\alpha)=(1-\alpha)^2,\qquad w(\alpha)=\alpha^2
+	\label{aw}
+\end{equation}
+
+\subsection{Formulation faible}
+\begin{questions}
+\question Montrez que toute solution du problème de minimisation doit satisfaire ces conditions d'optimalité du premier ordre par rapport à $u$ et $\alpha$:
+\begin{eqnarray}
+    D_u\mathcal{E}(u_i,{\alpha_i})(v)&=&0,\quad \forall v\in\mathcal{C}_0
+    \label{eq:foc-u}\\
+    D_\alpha\mathcal{E}(u_i,{\alpha_i})(\hat \alpha-\alpha_{i})
+    &\geq &0,\quad\forall  \hat \alpha\in \mathcal{D}(\alpha_{i})
+    \label{eq:foc-v}
+\end{eqnarray}
+Ce système constitue la formulation faible en espace du problème et est à la base de l'implémentation numérique proposée en TP. 
+Il s'agit d'un système couplé d'une équation variationnelle pour $u$ (équilibre) et une inéquation variationnelle pour $\alpha$ (critère d'endommagement). 
+\question
+Calculer les dérivées directionnelles $D_u\mathcal{E}(u_i,{\alpha_i})(v)$ et  $D_\alpha\mathcal{E}(u_i,{\alpha_i})(\beta)$.
+\end{questions}
+\subsection{Formulation forte}
+
+\begin{questions}
+    \question 
+    En reprenant les raisonnements de la section 1, on peut montrer que la condition d'optimalité du premier ordre par rapport à $u$ est équivalente aux conditions d'équilibre suivantes :
+\begin{equation}
+    \dfrac{d\sigma}{dx}(x) = 0, \; \forall x\in(0,L),\quad \text{avec}\quad
+    \sigma = E_0 \,a(\alpha(x))  \left(\dfrac{du}{dx}(x)+t\right), \
+    \label{eq:equilibre}
+\end{equation}
+où $\sigma$, indépendant de $x$, représente la valeur de la contrainte dans la barre.\\
+
+    \question Montrez  que, en supposant les solutions assez régulières, la condition d'optimalité du premier ordre par rapport à $\alpha$ est vérifiée si et seulement si, pour $x\in(0,L)$ implique que 
+    \begin{equation}
+        \dfrac{E_0\,a'(\alpha_i)}{2}\left(\frac{du_i}{dx}\right)^2+\left(w'(\alpha_i) -2 \ell^2\frac{d^2\alpha_i}{dx^2}\right)\,w_1 \geq{0}
+    \end{equation}
+    et qu'où $\alpha_i >\alpha_{i-1}$ la condition ci-dessus doit être satisfaite comme une égalité. On conclut que les conditions d'optimalité par rapport à $\alpha$ ont la suivante écriture en forme forte:
+\begin{subequations}
+    \begin{align}
+    \alpha_i-\alpha_{i-1}&\geq0,\\
+    \dfrac{E_0\,a'(\alpha_i)}{2}\left(\frac{du_i}{dx}\right)^2+\left(w'(\alpha_i) -2 \ell^2\frac{d^2\alpha_i}{dx^2}\right)\,w_1 &\geq{0},\\
+    \left(
+      \dfrac{E_0\,a'(\alpha_i)}{2}\left(\frac{du_i}{dx}\right)^2+\left(w'(\alpha_i) -2 \ell^2\frac{d^2\alpha_i}{dx^2}\right)\,w_1\right)\,
+    (\alpha_i-\alpha_{i-1})&=0,
+    %&\quad\text{on }&\Omega,
+    %\\
+    %\alpha-\alpha_{i-1}&\geq 0,
+    %&
+    %\nabla{\alpha}\cdot{\vect{n}}&\geq {0},
+    %&
+    %(\nabla{ \alpha}\cdot{\vect{n}})(\alpha-\alpha_{i-1})&=0
+    %&\text{on }& \partial\Omega,
+    \end{align}
+  \end{subequations}
+  Ces conditions sont complétés par les conditions aux bords
+  \begin{subequations}
+    \begin{eqnarray}
+        \alpha_i(0)- \alpha_{i-1}(0)\geq 0,&\alpha_i'(0)\leq 0,& (\alpha_i(0)- \alpha_{i-1}(0) )(\alpha_i'(0))=0,\\
+        \alpha_i(L)- \alpha_{i-1}(L)\geq 0,&\alpha_i'(L)\geq 0,& (\alpha_i(L)- \alpha_{i-1}(L) )(\alpha_i'(L))=0.
+    \end{eqnarray}
+    \label{eq:bc-alpha}
+\end{subequations}
+\end{questions}
+\subsection{Solution homogène}
+On cherche à présent les solutions à endommagement homogène en espace, en fonction de $t$. 
+\begin{questions}
+  \question Montrer que le critère d'endommagement peut se réécrire sous la forme:
+  \begin{equation}
+   \vert\sigma\vert\leq\bar{\sigma}(\alpha):= \sqrt{\frac{2 E_0 w_1w'(\alpha)}{s'(\alpha)}}  
+\end{equation}
+  où $s(\alpha)=1/a(\alpha)$ est la modulation de la souplesse.
+    %\item Montrer que si l'endommagement est homogène et inférieur à
+%          1, le déplacement est nul en tout point ($u=0$).
+    \question Pour les modèle $\mathsf{AT_1}$ et $\mathsf{AT_2}$, determiner la contrainte maximale supportable 
+     $$\sigma_M=\max_{\alpha\in[0,1]}\bar\sigma(\alpha)
+     $$
+     et les valeurs de l'endommagement pour lesquels les modèles est durcissant/adoucissant en contraintes (\emph{stress hardening/softening}).
+    
+  \begin{solution}
+      Le critère pour $d\alpha/dx=0$ donne:
+      $$
+      s(\alpha)=\frac{1}{(1-\alpha)^2},\quad s'(\alpha)=\frac{1}{(1-\alpha)^3}, \quad s''(\alpha)=\frac{3}{(1-\alpha)^4}
+      $$
+  \end{solution}
+    \question Pour un chargement monotone croissant $t$ à partir d'un état initiale $\alpha_0=0$, donner l'évolution de l'endommagement et de la contrainte $\sigma$ avec $t$ pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$. 
+    Montrez que les réponses $\sigma-t$ sont cohérentes avec les réponses ci-dessous. 
+    {%\begin{figure}[htbp]
+     \centering
+      \includegraphics[width=0.45\textwidth]{at1hom}
+      \includegraphics[width=0.45\textwidth]{at2hom}\\
+    %  \caption{Réponse en contrainte $\sigma$ en fonction du chargement $t$ monotone croissant pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$.}
+    %  \label{fig:response-homogene}
+    %\end{figure}
+     }
+    Marquez dans ces graphes les valueurs de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquez les zones à régime durcissant/adoucissant en contraintes. 
+\end{questions}
+
+\subsection{Solutions localisées}
+On cherche à présent les solutions à endommagement non-homogène. En particulier on cherche des solutions localisées dans une bande de largeur $D$ inconnue à l'intérieur du domaine.
+$$
+\begin{cases}
+\alpha(x)>0, &x\in  (x_0-D/2,x_0+D/2),\\
+\alpha(x)=0, & \text{autrement}
+\end{cases}
+$$
+avec $x_0$ et $D$ tels que $0<x_0\pm D/2<L$.
+Les solutions de ce type pour lesquels  $\max_x\alpha(x)=1$,  donc $\sigma=0$, sont assimilables à une approximation diffuse des fissures dans le modèle d'endommagement. 
+On peut donc identifier la ténacité  effective (énergie dissipée pour la création d'une fissure)  du modèle d'endommagement avec l'énergie dissipée dans ce type de solutions :
+$$
+\tilde G_c=w_1\int_{x_0-D/2}^{x_0+D/2}w(\alpha(x))+\ell^2\left(\frac{d\alpha}{dx}\right)^2\,dx
+$$
+	 \begin{questions}
+		      %\item \emph{Intégrale première}.  Montrer que, étant $c$ une constante,
+		      %$$-s(\alpha) \dfrac{E_0\sigma^2}{2}+\dfrac{G_c}{c_w}\left(\dfrac{w(\alpha)}{\ell} - 2 \ell \alpha'^2\right) = c\qquad \forall x\in(0,L)
+		      %$$
+		      %avec
+		      %$c = - {E_0\sigma^2}/{2}$.
+    \question Montrez que les solutions doivent vérifier l'intégrale première suivante :
+              $$
+              \frac{E_0}{w_1}(s(\alpha)-s(0))\,{\sigma^2}+2\,w(\alpha)=\left(\frac{d\alpha}{dx}\right)^2\ell^2
+              $$
+    \question Montrez que 
+              $$
+              \tilde G_c=c_w{w_1\ell},\text{ avec }c_w=4\,\int_0^1\sqrt{w
+              (\alpha)}d\alpha.
+              $$
+              et calculer $c_w$ pour les modèles $\mathsf{AT}_1$ et $\mathsf{AT}_2$.
+	\question On cherche des solutions où la contrainte est nulle, avec $\sigma=
+             0$ et
+              $\alpha(x_0)=1$. %, voir Figure~\ref{atkhom}(droite). 
+              On suppose
+              aussi que $\alpha'(x_0\pm D/2)=0$.
+              Déterminer le profil d'endommagement respectant ces conditions pour le modèle $\mathsf{AT}_1$.
+		            
+
+	\question Donner la valeur de la constante $w_1$ à utiliser pour que
+	      l'énergie dissipée dans ces solutions localisées avec $\sigma=0$ soit
+	      équivalente à $G_c$, i.e.~à l'énergie dissipée dans une fissure dans le
+	      modèle de rupture de Griffith.
+%	      \newline\underline{\textbf{Réponse 7:}}\vskip 5cm
+	      %$$
+	      %c_w = 4 \int_0^1\sqrt{w(\alpha)}d\alpha  = 8/3
+	      %$$
+	      %et  que la limite d'élasticité de la barre est donnée par
+	      %$$\sigma_c= \sqrt{\dfrac{3\,G_cE_0}{8\,\ell}}$$
+	\question  Étant données les propriétés matérielles du béton: $E_0=30\,
+    \mathrm{GPa}$, $G_c =50 \mathrm{N/m}$,  $\sigma_c = 4 \mathrm{MPa}$
+    déterminer $\ell$.
+ %   \newline\underline{\textbf{Réponse 8:}}\vskip 5cm
+
+    \end{questions}
+
+
+\end{document}
