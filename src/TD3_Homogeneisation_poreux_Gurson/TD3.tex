@@ -1,4 +1,4 @@
-\documentclass[french,english,12pt]{exam}
+\documentclass[french,12pt]{exam}
 
 %\printanswers
 
@@ -18,6 +18,7 @@
 \item Discuter des effets d'anisotropie
 \end{objectifs}
 
+\section{Position du problème}
 Le point de départ est de considérer le \textbf{critère de plasticité de von Mises} qui s'écrit:
 \begin{equation}
   \phi\left( \td{\sigma}   \right) =  \sigma_{eq} - \sigma_0 \leq 0 \hspace{2cm} \sigma_{eq} = \sqrt{\frac{3}{2} \td{s} \cdot \td{s}} \ \ \ \ \mathrm{avec} \ \ \ \ \td{s} = \tsigma - \frac{1}{3} \mathrm{tr}\tsigma \td{I}
@@ -39,19 +40,19 @@ Afin d'étendre ce critère à la présence d'une porosité, la géométrie pré
 \label{fig1}
 \end{figure}
 
-La contrainte et le taux de déformation (plastique) macroscopique sont définis à l'échelle du cylindre par les relations suivantes:\todo{Définitions correctes en présence d'un pore ?}
-\begin{equation}
-  \tSigma = \frac{1}{V} \int_V \tsigma dV
-\end{equation}
-\begin{equation}
-  \td{D} = \frac{1}{V} \int_V \td{d} \, dV = \frac{1}{2V} \int_{\partial V} \left(\td{v} \otimes \td{n} + \td{n} \otimes \td{v}     \right) dS
-\end{equation}
+La contrainte et le taux de déformation (plastique) macroscopique sont définis à l'échelle du cylindre par les relations suivantes:
+\begin{align}
+  \tSigma &= \frac{1}{V} \int_V \tsigma dV\\
+  \td{D} &= \frac{1}{V} \int_V \td{d} \, dV \\
+  &= \frac{1}{2V} \int_{\partial V} \left(\td{v} \otimes \td{n} + \td{n} \otimes \td{v}     \right) dS \label{eq:D-v-n}
+\end{align}
 avec $\td{v}$ le champ de vitesse, $V$ le cylindre de rayon $b$ et $\td{n}$ la normale à la surface extérieure.\\
 
 
 \begin{questions}
 \question Quel matériau peut être représenté par cette géométrie ? Dans le cas de chargement axisymétrique, montrer que le critère de plasticité en l'absence de cavité est donné par le critère de von Mises de la matrice et correspond à la Fig.~\ref{fig1} où $\Sigma_\ell$ désigne la contrainte latérale dans le plan $(x,y)$.\\
 \end{questions}
+
 \begin{solution}
 Le fait de considérer des pores cylindriques correspond à une idéalisation de cavités très allongées dans la direction $z$. Ce type de situation peut se recontrer dans le cas de tôles d'aciers laminés à chaud.\\
 
@@ -120,6 +121,8 @@ Le deuxième terme en $B$ est associé au champ de vitesse purement radial $\fra
 &= \dfrac{L B}{\pi b^2 L} \int_0^{2\pi}\td{e}_r\otimes\td{e}_r d\theta\\
 &= \dfrac{B}{b^2} \td{1}_p
 \end{align*}
+\textbf{Attention!} on ne peut utiliser directement l'intégrale de volume entre $a$ et $b$ car le champ ne peut pas être prolongé dans le pore n'importe comment, en particulier pas par $\td{d}=0$. Il est donc plus sûr d'utiliser la relation \eqref{eq:D-v-n} qui ne dépend pas de la façon dont on prolonge le champ dans le bord, cf. Leblond, J. B. "Mécanique de la rupture fragile et ductile, 2000.
+
 On a donc au final:
 $$\td{D} = \left(\dfrac{B}{b^2}- \dfrac{A}{2}\right)\td{1}_p + A\td{e}_z\otimes\td{e}_z$$
 On note que si $B=0$, le chargement macroscopique est purement déviatorique tandis que si $A=0$, on a un chargement purement hydrostatique dans le plan.
@@ -148,10 +151,12 @@ On a ici:
 où:
 $$d_{eq} = \sqrt{\dfrac{2}{3}}\sqrt{d_{rr}^2+d_{\theta\theta}^2+d_{zz}^2} = \sqrt{\dfrac{4}{3}\dfrac{B^2}{r^4}+A^2}$$
 \end{solution}
+\end{questions}
 
 \section{Estimations}
 Avant d'évaluer cette intégrale dans le cas général, nous considérons deux cas particuliers, à savoir $(B = 0, A \neq 0)$ et  $(B \neq 0, A = 0)$.\\
 
+\begin{questions}
 \question En calculant la dissipation plastique $\Pi$ et explicitant l'Eq.~\ref{eq2} dans chacun de ces cas, déterminer les estimations du critère de plasticité associées.
 \begin{solution}
 Dans le cas $B=0$, on a $d_{eq}=|A|$ ce qui donne:
@@ -183,6 +188,7 @@ En conclusion, le critère macroscopique est contenu dans l'intersection de ces 
 \captionof{figure}{Estimation du critère macroscopique pour différentes valeurs de $f$. Le critère est exact est nécessairement situé à l'intérieur de cette estimation.}
 \end{R_figure}
 \end{solution}
+\end{questions}
 
 \section{Expression dans le cas général}
 Dans le cas général, il est possible de montrer que:
@@ -193,6 +199,7 @@ Dans le cas général, il est possible de montrer que:
   \end{align}
 On note en particulier que $N'(\lambda)= -\lambda M'(\lambda)$.
 
+\begin{questions}
 \question En explicitant l'Eq.~\eqref{eq:plastic-boundary}, montrer que les états de contrainte $\tSigma^*$ à la frontière du domaine sont donnés par:
   \begin{equation}
     \frac{\Sigma_{zz}^* - \Sigma_\ell^*}{\sigma_0} = N(\lambda)
@@ -229,11 +236,12 @@ En remarquant que:
 $$\left(  \frac{\Sigma_{zz} - \Sigma_\ell}{\sigma_0} \right)^2 = N(\lambda)^2 = 1+\lambda^2+f^2+\lambda^2 -2\sqrt{1+\lambda^2}\sqrt{f^2+\lambda^2}$$
 on vérifie bien l'expression demandée.
 \end{solution}
-
+\end{questions}
 
 \section{Etude du critère}
 L'Eq.~\eqref{eq4} correspond au critère de plasticité pour matériau poreux recherché, dont il convient de vérifier la pertinence en étudiant les cas limites.\\
 
+\begin{questions}
 \question Que devient l'Eq.~\eqref{eq4} dans la limite $f \to 0$ ? Et dans la limite $f \to 1$ ?
 \begin{solution}
 Lorsque $f\to 0$, il n'y a plus de pore et on retombe sur le critère de von Mises de la matrice. \`A la limite $f\to 1$, compte-tenu du fait que $\cosh(x)\geq 1$, on constate qu'il n'est plus possible de vérifier le critère sauf si $\tSigma=0$.
@@ -285,7 +293,7 @@ $$\dot{\Lambda}= \dfrac{D_{zz}\sigma_0^2}{2(\Sigma_{zz}-\Sigma_\ell)}$$
 soit:
 $$\dot{f} = (1-f)f\dfrac{\sqrt{3}\sigma_0}{\Sigma_{zz}-\Sigma_\ell}D_{zz}$$
 \end{solution}
-
+\end{questions}
 
 \section{Extension aux matériaux anisotropes}
 Le critère de plasticité pour matériaux poreux obtenu est pertinent dans le cas des matériaux isotropes. Le matériau caractérisé dans les travaux pratiques (alliage X100) est orthotrope et peut être modélisé, en l'absence de porosité, par la plasticité de Hill:
@@ -331,7 +339,7 @@ Il est possible de conduire la même démarche d'analyse limite que dans le cas 
   \end{equation} 
 
 avec $h_m = \sqrt{\dfrac{3}{2}}\sqrt{\dfrac{H+G}{4(FG+FH+GH)} + \dfrac{1}{2L}}$.
-
+\begin{questions}
 \question Dans quelle situation particulière de symétries matérielles est-il raisonnable de considérer le même champ de vitesse qu'en \eqref{eq:champ-vitesse} ?
 \begin{solution}
 Le champ précédent suppose une invariance par rotation autour de l'axe $z$. Ce champ peut donc être utilisé dans le cas particulier de l'isotropie transverse d'axe $z$.

@@ -1,5 +1,5 @@
 %% Do not edit unless you really know what you are doing.
-\documentclass[french,english,12pt]{exam}
+\documentclass[french,12pt]{exam}
 
 %\printanswers
 
@@ -67,13 +67,13 @@ Nous noterons $\Delta P = P_i - P_e$ la différence de pression.
 Le matériau est un alliage d’aluminium considéré ici dans son domaine élastique linéaire avec un module d’Young
 $E = \SI{70}{GPa}$ et un coefficient de Poisson $\nu = 0.3$.
 
-
 \section{Analyse multi-échelle du problème}
+
 
 L’analyse du problème comporte deux parties. La première porte sur la détermination du champ de contraintes au
 voisinage de l’extrémité de la fissure, car c’est lui qui pilotera son avancée et la ruine catastrophique de la structure.
 Elle se fera par une approche multi-échelle simplifiée (cf. fig. \ref{fig:analyse}), analytique, comportant les points suivants:
-\begin{itemize}
+\begin{itemize}[label=$\bullet$]
 \item Détermination des contraintes dans le fuselage soumis à des pressions interne et externe;
 \item Calcul du champ de contraintes au bord du hublot en considérant celui-ci comme une cavité circulaire dans une
 plaque mince soumise à l’infini au champ précédent;
@@ -107,7 +107,7 @@ Du fait de la grande valeur de $R/e$, la contrainte radiale qui est de l'ordre d
 \subsubsection{Analyse du voisinage du bord des hublots}
 
 Pour une analyse approchée simple du champ de contraintes au voisinage des hublots:
-\begin{itemize}
+\begin{itemize}[label=$\bullet$]
 \item  nous supposerons que les différents hublots ont peu d’influence les uns sur les autres, car la distance entre
 hublot est grande par rapport à leur taille;
 \item  nous négligerons l’influence des trous des rivets, car ceux-ci sont de très petite taille par rapport au rayon du
@@ -138,6 +138,7 @@ contrainte $\tenseur{\sigma} ^\infty  =\sigma _\infty
 \end{subequations}
 
 \begin{questions}
+\setcounter{question}{1}
 \question Vérifier que cette solution satisfait bien les conditions aux limites en bord de trou et à l'infini.  Quel champ de contraintes prédit-elle en bord de trou pour un chargement uniaxial?
 \begin{solution}
 Bien que ce n'était pas demandé, on pourra faire remarquer que le champ proposé vérifie bien l'équilibre local $\divergence{ \tenseur{\sigma}}=0$. De plus, on trouve en bord de trou $r=a$:
@@ -184,7 +185,9 @@ Les trous de rivets ont un diamètre de 5mm. Ils sont placés à 2cm du bord du 
 En première approximation, nous pouvons supposer que ce trou de rivet est suffisamment loin du bord du trou du hublot pour ne pas être influencé par celui-ci. Nous pouvons donc en première approximation considérer la solution d'une plaque infinie percée d'un trou circulaire soumise à l'infini au champ de contrainte $\tenseur{\sigma} ^\infty =\sigma_\text{hublot} \tenseur{e}_Y\otimes 
 \tenseur{e}_Y$. 
 
-En se plaçant dans le repère cylindrique associé au rivet, calculer la valeur maximale de la traction orthoradiale $\sigma_{\theta \theta} $ en bord de rivet
+\begin{questions}
+\setcounter{question}{3}
+\question En se plaçant dans le repère cylindrique associé au rivet, calculer la valeur maximale de la traction orthoradiale $\sigma_{\theta \theta} $ en bord de rivet
 $\sigma_\text{rivet} = \max_{\theta} \sigma_{\theta \theta}(a) $. Effectuer l'application numérique.
 
 \begin{solution}
@@ -200,6 +203,7 @@ propagation d’une micro-fissure est la plus probable et la plus dangereuse.
 
 Notons également que la valeur numérique trouvée pour la contrainte est relativement élevée et peut potentiellement mettre en défaut l'hypothèse d'une étude dans le régime élastique linéaire.
 \end{solution}
+\end{questions}
 
 \section{Propagation de défaut critique}
 Le bord de rivet est donc la région la plus sollicitée de la structure. Nous considérons la présence d'un défaut initialement sous la forme d'une fissure débouchant dans le rivet et de taille $a_0=\SI{30}{\micro\meter}$.

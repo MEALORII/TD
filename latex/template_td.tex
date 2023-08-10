@@ -2,7 +2,7 @@
 \usepackage[T1]{fontenc} % accents codÃ©s dans la fonte
 %\usepackage{layout}
 \usepackage{a4wide}
-%\usepackage[french]{babel}
+\usepackage[frenchb]{babel}
 \usepackage{hyperref}
 
 \usepackage{graphicx}
@@ -25,7 +25,8 @@
 %\setlength{\textheight}{25.5cm}   % Hauteur de la zone de texte (25cm)
 
 \usepackage{indentfirst}
-
+ 
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution :}\enspace}
 
 \newcommand{\classurl}{\url{1}}
 % #1 numÃ©ro de la feuille
@@ -46,17 +47,22 @@
     \vspace*{0.5cm}
   \end{center}
 }
-
+\usepackage{enumitem}
 \usepackage{xcolor}
 \definecolor{Blue}{RGB}{0,68,170}
 \SolutionEmphasis{\normalfont\color{Blue}}
 \DeclareCaptionFont{blue}{\color{Blue}}
 
+
+\renewcommand{\thequestion}{\thesection.\arabic{question}}
+%\patchcmd{\questions}{10.}{\thequestion.}{}{}% fix left margin
+
 \newenvironment{objectifs}
-    {\itshape\underline{Objectifs:}\begin{itemize}
+    {\renewcommand{\labelitemi}{$\bullet$}\itshape\underline{Objectifs:}\begin{itemize}
+
     }
     { \itshape
-    \end{itemize}
+    \end{itemize}\vspace{0.5em}
     }
     
 \newcounter{Rfig}

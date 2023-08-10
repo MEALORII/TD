@@ -37,7 +37,7 @@ P(\sigma) =  \left(\dfrac{\sigma}{\sigma_u}\right)^m,
 relier $\sigma_u$ aux paramètres mécaniques et aux paramètres de distribution des défauts $\alpha,\beta$.
 \begin{solution}
 En reprenant les expressions précédentes, on a:
-$$ P(\sigma) = \dfrac{2\alpha}{m}\left(\dfrac{\pi E \gamma_s}{2(1-\nu^2)}\right)^{-m/2} \sigma^{m} = \dfrac{\sigma^m}{\dfrac{m}{2\alpha}\sqrt{\left(\dfrac{\pi E \gamma_s}{2(1-\nu^2)}\right)}^m}$$
+$$ P(\sigma) = \dfrac{2\alpha}{m}\left(\dfrac{\pi E \gamma_s}{2(1-\nu^2)}\right)^{-m/2} \sigma^{m} = \dfrac{\sigma^m}{\dfrac{m}{2\alpha}\sqrt{\left(\dfrac{\pi E \gamma_s}{2(1-\nu^2)}\right)^m}}$$
 On a alors:
 $$\sigma_u = \left(\dfrac{m}{2\alpha}\right)^{1/m}\sqrt{\dfrac{\pi E \gamma_s}{2(1-\nu^2)}}.$$
 \end{solution}
@@ -76,7 +76,7 @@ chacun des modèles :
 envers l’exposant d’écrouissage ?
 \begin{solution}
 Il vient $\frac{N-1}{2} = \frac{m}{4}-1$, d’où $m=2+2N=2+2/n$. Les valeurs numériques sont reportées dans le
-tableau ci-dessous. L’écart relatif entre les valeurs de $m$ est d’environ 20\% dans l’intervalle de détermination
+tableau \ref{tab}. L’écart relatif entre les valeurs de $m$ est d’environ 20\% dans l’intervalle de détermination
 utilisé.
 
 \begin{R_table}
@@ -87,7 +87,7 @@ $n$ & 0.13 & 0.14 & 0.15 & 0.16 \\
 Estimateur de $m$ & 17.38 & 16.29 & 15.33 & 14.50 \\ 
 \hline 
 \end{tabular}
-\captionof{table}{Première estimation de $m$ via le modèle de \cite{curry1979effect}}
+\captionof{table}{Première estimation de $m$ via le modèle de \cite{curry1979effect}}\label{tab}
 \end{R_table} 
 \end{solution}
 \end{questions}
