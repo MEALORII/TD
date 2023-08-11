@@ -6,6 +6,6 @@ Premier jet:
 * **TD2 : Analyse de la ruine d'une structure**, Jérémy Bleyer, Véronique Lazarus, [[énoncé]](src/TD2_Analyse_ruine_COMET/TD2.pdf)-[[correction]](src/TD2_Analyse_ruine_COMET/TD2_solution.pdf)
 * **TD3 : Rupture ductile: homogénéisation de matériaux poreux**, Jérémy Hure, Djimédo Kondo, Jérémy Bleyer, [[énoncé]](src/TD3_Homogeneisation_poreux_Gurson/TD3.pdf)-[[correction]](src/TD3_Homogeneisation_poreux_Gurson/TD3_solution.pdf)
 
-A écrire:
+* **TD4 : Approches variationnelles**, Jérémy Bleyer, Corrado Maurini [[énoncé]](src/TD4/TD4.pdf), version préliminaire
 
-* **TD5 : Approches variationnelles**, Jérémy Bleyer, Corrado Maurini
+

@@ -37,10 +37,13 @@ Dans cet exercice on se propose de retrouver les propriétés fondamentales de c
     \support{3}{a}[-90];
     %\support{3}{b}[90];
     \beam{2}{a}{b}[0][1];
-    \dimensioning{3}{e}{d}{.0}[$u(L)=t\,L$];
-    %\notation{1}{c}{$\epsilon_0(t)=-t<0$}[above];
-    \dimensioning{1}{a}{b}{-1.}[$L$];
-    %\load{1}{d}[180]
+%    \dimensioning{3}{e}{d}{-1.}[$u(L)=t\,L$];
+    %\dimensioning{1}{e}{d}{1}[$u(L)=t\,L];
+    \notation{1}{e}{$u(L)=t\,L$}[above];
+    \load{1}{d}[180]
+   % \dimensioning{3}{a}{b}{.5}[$\Delta s$];
+    %\dimensioning{2}{a}{b}{-1.}[$L$] ;
+    \dimensioning{1}{a}{b}{-1.}[$L$] ;
     %\notation{3}{a}{b}[$i$];
     %\temperature{a}{b}{-.5}{.5};
     \end{tikzpicture}
@@ -73,10 +76,10 @@ u\in\mathcal{C}_t: \,\mathcal{P}(u+h(\hat u-u))-\mathcal
 {P}(u)\geq 0,\forall \hat u\in\mathcal C_t.
 \label{eq:energy-variation}
 \end{equation}
-L'éspace de configuration admissibles est donné par les fonctions qui respectent les conditions aux limites de Dirichlet et qui sont assez régulières pour que $\mathcal{P}(u)\leq +\infty$:
+L'espace de configuration admissibles est donné par les fonctions qui respectent les conditions aux limites de Dirichlet et qui sont assez régulières pour que $\mathcal{P}(u)\leq +\infty$:
 \begin{questions}
     \question 
-    Donner l'expression de $\mathcal{C}_t$ pour la barre de figure~\ref{fig:barre} et monter, avec une développement limité en $h$ de la variation de l'énergie~\eqref{eq:energy-variation} que une configuration d'équilibre doit satisfaire la condition suivante, formulation faible du problème d'élasticité:
+    Donner l'expression de $\mathcal{C}_t$ pour la barre de figure~\ref{fig:barre} et monter, avec un développement limité en $h$ de la variation de l'énergie~\eqref{eq:energy-variation} qu'une configuration d'équilibre doit satisfaire la condition suivante, formulation faible du problème d'élasticité :
     \begin{equation}
         D_u\mathcal{P}(u)(v)=0,\quad \forall v\in \mathcal{C}_0
         \label{eq:elasticite-foc}
@@ -146,9 +149,9 @@ L'approche variationnelle de la rupture (Francfort-Marigo 1998) défini la solut
 %\end{figure}
 On étudie le problème d'évolution de la barre en figure~\ref{fig:barre} avec un modèle d'endommagement à gradient en 1d et une approche énergétique.  On considère le problème d'évolution à temps discret, avec $t_i=i\,\Delta t$ et un pas $\Delta t>0$ constant. Soit $u_i:x\in[0,L]\to\mathcal R$, $\alpha_i:x\in[0,L]\to\mathcal R$ le champ de déplacement axial et d'endommagement à l'instant $t_i$.
 En $t=0$ la barre est à endommagement nul, $\alpha_0=0$. 
-On suppose le champs d'endommagement libre aux bords. A l'instant $t_i=
+On suppose le champ d'endommagement libre aux bords. A l'instant $t_i=
 i\,\Delta t$, l'état $(u_i,\alpha_i)$ de la barre est donné par la solution du
-problème suivaint de minimisation locale directionnelle :
+problème suivant de minimisation locale directionnelle :
 
 Déterminer $u_i\in \mathcal C_i,\;\alpha_i\in\mathcal{D}(\alpha_{i-1})$ tels que 
 $\forall \hat u\in\mathcal{C}_i$,
@@ -175,11 +178,14 @@ où
 $E_0$ étant le module de Young de la barre saine, $\ell$ la longueur interne.
 La constante $w_1$ représente l'énergie dissipée pour unité de volume dans le
 modèle d'endommagement.
-On considère dans la suite le modèle d'endommagement caractérisé par
+On considère dans la suite deux modèles largement utilisés dans la littérature pour les approches de type champs-de-phase à la rupture : 
 \begin{equation}
-	a(\alpha)=(1-\alpha)^2,\qquad w(\alpha)=\alpha.
-	%	a(\alpha)=(1-\alpha)^2,\qquad w(\alpha)=\alpha^2
-	\label{aw}
+    \begin{cases}
+    \mathsf{AT_1}:&	a(\alpha)=(1-\alpha)^2,\qquad w(\alpha)=\alpha,\\
+    \mathsf{AT_2}:&		
+    a(\alpha)=(1-\alpha)^2,\qquad w(\alpha)=\alpha^2.
+    \end{cases}
+	\label{eq:AT-models}
 \end{equation}
 
 \subsection{Formulation faible}
@@ -231,7 +237,7 @@ où $\sigma$, indépendant de $x$, représente la valeur de la contrainte dans l
     %&\text{on }& \partial\Omega,
     \end{align}
   \end{subequations}
-  Ces conditions sont complétés par les conditions aux bords
+  Ces conditions sont complétées par les conditions aux bords
   \begin{subequations}
     \begin{eqnarray}
         \alpha_i(0)- \alpha_{i-1}(0)\geq 0,&\alpha_i'(0)\leq 0,& (\alpha_i(0)- \alpha_{i-1}(0) )(\alpha_i'(0))=0,\\
@@ -243,26 +249,27 @@ où $\sigma$, indépendant de $x$, représente la valeur de la contrainte dans l
 \subsection{Solution homogène}
 On cherche à présent les solutions à endommagement homogène en espace, en fonction de $t$. 
 \begin{questions}
-  \question Montrer que le critère d'endommagement peut se réécrire sous la forme:
+  \question Montrer que le critère d'endommagement peut se réécrire sous la forme :
   \begin{equation}
    \vert\sigma\vert\leq\bar{\sigma}(\alpha):= \sqrt{\frac{2 E_0 w_1w'(\alpha)}{s'(\alpha)}}  
 \end{equation}
   où $s(\alpha)=1/a(\alpha)$ est la modulation de la souplesse.
     %\item Montrer que si l'endommagement est homogène et inférieur à
 %          1, le déplacement est nul en tout point ($u=0$).
-    \question Pour les modèle $\mathsf{AT_1}$ et $\mathsf{AT_2}$, determiner la contrainte maximale supportable 
+    \question Pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$ en~\eqref{eq:AT-models}, déterminer la contrainte maximale supportable 
      $$\sigma_M=\max_{\alpha\in[0,1]}\bar\sigma(\alpha)
      $$
      et les valeurs de l'endommagement pour lesquels les modèles est durcissant/adoucissant en contraintes (\emph{stress hardening/softening}).
     
   \begin{solution}
-      Le critère pour $d\alpha/dx=0$ donne:
+      Le critère pour $d\alpha/dx=0$ donne :
       $$
       s(\alpha)=\frac{1}{(1-\alpha)^2},\quad s'(\alpha)=\frac{1}{(1-\alpha)^3}, \quad s''(\alpha)=\frac{3}{(1-\alpha)^4}
       $$
   \end{solution}
-    \question Pour un chargement monotone croissant $t$ à partir d'un état initiale $\alpha_0=0$, donner l'évolution de l'endommagement et de la contrainte $\sigma$ avec $t$ pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$. 
-    Montrez que les réponses $\sigma-t$ sont cohérentes avec les réponses ci-dessous. 
+    \question Pour un chargement monotone croissant $t$ à partir d'un état initial $\alpha_0=0$, donner l'évolution de l'endommagement et de la contrainte $\sigma$ avec $t$ pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$. 
+    Montrez que les réponses $\sigma-t$ sont cohérentes avec les réponses ci-dessous.
+
     {%\begin{figure}[htbp]
      \centering
       \includegraphics[width=0.45\textwidth]{at1hom}
@@ -271,11 +278,12 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
     %  \label{fig:response-homogene}
     %\end{figure}
      }
-    Marquez dans ces graphes les valueurs de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquez les zones à régime durcissant/adoucissant en contraintes. 
+     
+    Marquez dans ces graphes les expressions de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquez les zones à régime durcissant/adoucissant en contraintes. 
 \end{questions}
 
 \subsection{Solutions localisées}
-On cherche à présent les solutions à endommagement non-homogène. En particulier on cherche des solutions localisées dans une bande de largeur $D$ inconnue à l'intérieur du domaine.
+On cherche à présent les solutions à endommagement non homogène. En particulier on cherche des solutions localisées dans une bande de largeur $D$ inconnue à l'intérieur du domaine.
 $$
 \begin{cases}
 \alpha(x)>0, &x\in  (x_0-D/2,x_0+D/2),\\
@@ -322,7 +330,7 @@ $$
 	      %$$
 	      %et  que la limite d'élasticité de la barre est donnée par
 	      %$$\sigma_c= \sqrt{\dfrac{3\,G_cE_0}{8\,\ell}}$$
-	\question  Étant données les propriétés matérielles du béton: $E_0=30\,
+	\question  Étant donné les propriétés matérielles du béton : $E_0=30\,
     \mathrm{GPa}$, $G_c =50 \mathrm{N/m}$,  $\sigma_c = 4 \mathrm{MPa}$
     déterminer $\ell$.
  %   \newline\underline{\textbf{Réponse 8:}}\vskip 5cm
