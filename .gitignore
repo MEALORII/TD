@@ -221,3 +221,5 @@ acs-*.bib
 *.pre
 *.snm
 *.vrb
+
+*.DS_Store
