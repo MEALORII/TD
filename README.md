@@ -7,5 +7,3 @@ Premier jet:
 * **TD3 : Rupture ductile: homogénéisation de matériaux poreux**, Jérémy Hure, Djimédo Kondo, Jérémy Bleyer, [[énoncé]](src/TD3_Homogeneisation_poreux_Gurson/TD3.pdf)-[[correction]](src/TD3_Homogeneisation_poreux_Gurson/TD3_solution.pdf)
 
 * **TD4 : Approches variationnelles**, Jérémy Bleyer, Corrado Maurini [[énoncé]](src/TD4_Rupture_variationelle/TD4.pdf)-[[correction]](src/TD4_Rupture_variationelle/TD4_solution.pdf)
-
-
