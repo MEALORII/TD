@@ -1,29 +1,33 @@
 %% Do not edit unless you really know what you are doing.
 \documentclass[french,english,12pt]{exam}
 
-%\printanswers
+\printanswers
+
 \usepackage{tikz}
-\usepackage{tikz}
+
 \usepackage{../../latex/macro_mealor}
 \usepackage{../../latex/structuralanalysis}
 \input{../../latex/template_td.tex}
 \graphicspath{{./pic/}}
 \usepackage{subcaption}
+
+\newcommand{\jb}[1]{{\textcolor{red}{#1}}}
+
 \begin{document}
 \thispagestyle{empty}
-\titre{4}{Les modèles variationnelles de rupture en 1d: barre en traction}{Jérémy Bleyer, Corrado Maurini}
+\titre{4}{Les modèles variationnels de rupture en 1d: barre en traction}{Jérémy Bleyer, Corrado Maurini}
 %\maketitle
 \begin{objectifs}
 \item Manipuler les conditions d'optimalité d'une fonctionnelle et appliquer l'approche variationnelle à la rupture dans le cas 1d
 \item Déterminer l'évolution quasi-statique d'un modèle d'endommagement
 \item Comprendre l'origine des contraintes limites et de la ténacité dans les modèles d'endommagement à gradient.
-\item Assimiler les bases des modèles de rupture de type champs de phase avant la mise en ouvre numérique.
+\item Assimiler les bases des modèles de rupture de type champs de phase avant la mise en \oe{}uvre numérique.
 \item Construire des solutions de référence pour la vérification d'un code numérique de type champs de phase.
 \end{objectifs}
 
 \section*{Contexte}
-Les modèles variationnelle à rupture sont à la base des approches de type champs de phase pour la simulation numérique des phénomènes de rupture fragile. 
-Dans cet exercice on se propose de retrouver les propriétés fondamentales de ces modèles dans le cadre simplifié d'une barre en traction. 
+Les modèles variationnels de rupture sont à la base des approches de type champs de phase pour la simulation numérique des phénomènes de rupture fragile. 
+Dans cet exercice, on se propose de retrouver les propriétés fondamentales de ces modèles dans le cadre simplifié d'une barre en traction. 
 
 
 \begin{figure}[h!]
@@ -54,12 +58,12 @@ On considère une barre encastrée en $x=0$ et avec un déplacement imposé $u(L
 $x=L$.  On note par $E_0$ le module de Young du matériau
 constituant la barre (dans son état non endommagé), $G_c$ sa
 ténacité, $S$ la
-surface de la section droite et $L$ la longueur. Dans la suite on étudie le
+surface de la section droite et $L$ la longueur. Dans la suite, on étudie le
 problème de rupture de la barre avec un modèle de Griffith et un modèle
 d'endommagement à gradient.
 
 \section{Solution élastique : approche variationnelle}
-On suppose ici que la barre soit élastique linéaire. On se propose de déterminer la solution de ce problème simple avec l'approche variationnelle de l'élasticité.
+On suppose ici que la barre est élastique linéaire. On se propose de déterminer la solution de ce problème simple avec l'approche variationnelle de l'élasticité.
 
 L'énergie potentielle élastique de la barre est 
 \begin{equation}
@@ -68,18 +72,18 @@ L'énergie potentielle élastique de la barre est
 		(x)\right)^2 dx
 	\label{eq:energie-elastique}
 \end{equation}
-où $u:x\in\Omega\equiv[0,L]\to u(x)\in\mathcal R$   le déplacement axial de la
+où $u:x\in\Omega\equiv[0,L]\to u(x)\in\mathcal R$ désigne  le déplacement axial de la
 barre.
-Le problème de recherche de configurations d'équilibre peut être formulée comme problème de minimisation de l'énergie. La configuration d'équilibre $u$ doit être celle qui minimise l'énergie parmi toutes les configurations admissibles $\hat u \in\mathcal{C}_t$, où $\mathcal{C}_t$ est l'espace des configurations admissibles :
+Le problème de recherche de configurations d'équilibre peut être formulé comme un problème de minimisation de l'énergie potentielle. La configuration d'équilibre $u$ doit être celle qui minimise l'énergie parmi toutes les configurations admissibles $\hat u \in\mathcal{C}_t$, où $\mathcal{C}_t$ est l'espace des configurations admissibles :
 \begin{equation}
 u\in\mathcal{C}_t: \,\mathcal{P}(u+h(\hat u-u))-\mathcal
 {P}(u)\geq 0,\forall \hat u\in\mathcal C_t.
 \label{eq:energy-variation}
 \end{equation}
-L'espace de configuration admissibles est donné par les fonctions qui respectent les conditions aux limites de Dirichlet et qui sont assez régulières pour que $\mathcal{P}(u)\leq +\infty$:
+L'espace des configuration admissibles est donné par les fonctions qui respectent les conditions aux limites de Dirichlet et qui sont assez régulières pour que $\mathcal{P}(u)\leq +\infty$:
 \begin{questions}
     \question 
-    Donner l'expression de $\mathcal{C}_t$ pour la barre de figure~\ref{fig:barre} et monter, avec un développement limité en $h$ de la variation de l'énergie~\eqref{eq:energy-variation}, qu'une configuration d'équilibre doit satisfaire la condition suivante, formulation faible du problème d'élasticité :
+    Donner l'expression de $\mathcal{C}_t$ pour la barre de figure~\ref{fig:barre} et montrer, avec un développement limité en $h$ de la variation de l'énergie~\eqref{eq:energy-variation}, qu'une configuration d'équilibre doit satisfaire la condition suivante, formulation faible du problème d'élasticité :
     \begin{equation}
         D_u\mathcal{P}(u)(v)=0,\quad \forall v\in \mathcal{C}_0
         \label{eq:elasticite-foc}
@@ -89,9 +93,9 @@ L'espace de configuration admissibles est donné par les fonctions qui respecten
     D_u\mathcal{P}(u)(v):=\left.\dfrac{d}{dh}\mathcal{P}(u+hv)\right\vert_{h=0}
     $$
     et donner pour notre exemple l'expression de 
-    $\mathcal{C}_0$, définie comme l'espace vectorielle des variations admissibles, constituées par les différences entre fonctions admissibles.
+    $\mathcal{C}_0$, défini comme l'espace vectoriel des variations admissibles, constituées par les différences entre fonctions admissibles.
     \begin{solution}
-        Les fonctions admissibles doivent avoir dérivées premières à carré intégrables dans $\Omega$, pour avoir énergie finie et respecter les conditions aux limites :
+        Les fonctions admissibles doivent avoir des dérivées premières à carré intégrables dans $\Omega$, pour avoir une énergie finie et respecter les conditions aux limites :
         $$\mathcal{C}_t=\{u\in H^1(0,L),\,u(0)=0,\,u(L)=t\,L\}
         $$
         Soit $v=\hat u-u\in\mathcal{C}_0$. Le développement en $h$ de la condition de minimalité donne
@@ -100,7 +104,7 @@ L'espace de configuration admissibles est donné par les fonctions qui respecten
         $$
         donc au premier ordre on doit avoir:
         $$D_u\mathcal{P}(u)(v)\geq 0$$
-        Étant $\mathcal{C}_0$ un espace vectoriel, $\forall v\in\mathcal{C}_0$,  $-v\in \mathcal{C}_0$. Par la linéarité de la dérivée, 
+        $\mathcal{C}_0$ étant un espace vectoriel, $\forall v\in\mathcal{C}_0$,  $-v\in \mathcal{C}_0$. Par la linéarité de la dérivée, 
         $D_u\mathcal{P}(u)(-v)=-D_u\mathcal{P}(u)(v)$. Donc on doit avoir $D_u\mathcal{P}(u)(v)= 0$.
         
     \end{solution}
@@ -119,7 +123,7 @@ L'espace de configuration admissibles est donné par les fonctions qui respecten
         $$
         \int_0^L -\sigma \,v(x)\mathrm{d}x=0,\quad\forall v\in\mathcal{C}_0
         $$
-        Le lemme fondamental du calcul des variations impose donc que, étant $v$ arbitraire :
+        $v$ étant arbitraire, le lemme fondamental du calcul des variations impose donc que :
         $$
         \sigma'(x)=0,\quad\forall x\in(0,L)
         $$
@@ -143,9 +147,9 @@ L'espace de configuration admissibles est donné par les fonctions qui respecten
 \end{questions}
 
 \section{Modèle de Griffith}
-Dans un modèle de type "interphase franche" de rupture à la Griffith, les fissures un ensemble de points $\Gamma\equiv\{\bar x_i\}_{i=1}^n$ où les déplacements peuvent être discontinus.  
+Dans un modèle de type "interphase franche" de rupture à la Griffith, les fissures forment un ensemble de points $\Gamma\equiv\{\bar x_i\}_{i=1}^n$ où les déplacements peuvent être discontinus.  
 On considère ici pour la barre un modèle de Griffith monodimensionnel,
-caractérisée par l'énergie totale
+caractérisé par l'énergie totale
 \begin{equation}
 	\quad \mathcal{E}_G(u,n)=\int_{\Omega\setminus\Gamma} E_0S\left(
 	\frac{du}{dx}
@@ -154,11 +158,11 @@ caractérisée par l'énergie totale
 \end{equation}
 où $u:x\in[0,L]\to u(x)\in\mathcal R$ représente  le déplacement axial de la
 barre et $n$ le nombre des fissures. 
-L'approche variationnelle de la rupture (Francfort-Marigo 1998) défini la solution du problème comme le minimum globale de l'énergie $\mathcal{E}_G(u,n)$, sous une contrainte d'irréversibilité pour les fissures.
+L'approche variationnelle de la rupture (Francfort-Marigo 1998) définit la solution du problème comme le minimum global de l'énergie $\mathcal{E}_G(u,n)$, sous une contrainte d'irréversibilité pour les fissures.
 
 
 \begin{questions}
-\question En utilisant les résultats de la section précedente, calculer $\mathcal{E}_G(u,0)$ et $\mathcal{E}_G(u,1)$ en fonction de $t$. Calculer le chargement critique $t_G$ pour la fissuration de la barre selon ce modèle. Discuter de la pertinence physique de ce modèle de nucléation. 
+\question En utilisant les résultats de la section précédente, calculer $\mathcal{E}_G(u,0)$ et $\mathcal{E}_G(u,1)$ en fonction de $t$. Calculer le chargement critique $t_G$ pour la fissuration de la barre selon ce modèle. Discuter de la pertinence physique de ce modèle de nucléation. 
 \begin{solution}
     $$\mathcal{E}_G(u,0)=\dfrac{t^2}{2}{E_0 S}L,\quad \mathcal{E}_G(u,1)=G_c S
     \quad\Rightarrow\quad t_G=\sqrt{\dfrac{2G_c}{E_0SL}}$$
@@ -176,10 +180,10 @@ L'approche variationnelle de la rupture (Francfort-Marigo 1998) défini la solut
 %		\label{default}
 %	\end{center}
 %\end{figure}
-On étudie le problème d'évolution de la barre en figure~\ref{fig:barre} avec un modèle d'endommagement à gradient en 1d et une approche énergétique.  On considère le problème d'évolution à temps discret, avec $t_i=i\,\Delta t$ et un pas $\Delta t>0$ constant. Soit $u_i:x\in[0,L]\to\mathcal R$, $\alpha_i:x\in[0,L]\to\mathcal R$ le champ de déplacement axial et d'endommagement à l'instant $t_i$.
+On étudie le problème d'évolution de la barre en figure~\ref{fig:barre} avec un modèle d'endommagement à gradient en 1d et une approche énergétique.  On considère le problème d'évolution en temps discret, avec $t_i=i\,\Delta t$ et un pas $\Delta t>0$ constant. Soit $u_i:x\in[0,L]\to\mathcal R$, $\alpha_i:x\in[0,L]\to\mathcal R$ le champ de déplacement axial et d'endommagement à l'instant $t_i$.
 En $t=0$ la barre est à endommagement nul, $\alpha_0=0$. 
 On suppose le champ d'endommagement libre aux bords.
-A cause de l'irreversbilité de l'endommagement on doit avoir $\alpha_i\geq\alpha_{i-1}\geq 0$.
+A cause de l'irréversibilité de l'endommagement, on doit avoir $\alpha_i\geq\alpha_{i-1}\geq 0$.
 
 A l'instant $t_i=
 i\,\Delta t$, l'état $(u_i,\alpha_i)$ de la barre est donné par la solution du
@@ -246,7 +250,7 @@ Il s'agit d'un système couplé d'une équation variationnelle pour $u$ (équili
     $$D_u\mathcal{E}(u_i,{\alpha_i})(v)\geq 0,\quad
     D_\alpha\mathcal{E}(u_i,{\alpha_i})(\beta)\geq 0.$$
     Si $v\in\mathcal{C}_0$, alors $-v\in\mathcal{C}_0$, donc $D_u\mathcal{E}(u_i,{\alpha_i})(v)=0$. Mais cela n'est pas vrai en général pour $\beta$ et $D_\alpha\mathcal{E}(u_i,{\alpha_i})(\beta)$. 
-    Dans tous les points $x$ où $\alpha_i(x)=\alpha_{i-1}(x)$, $\beta(x)=\hat\alpha(x)-\alpha_i(x)\geq 0$, car on  doit avoir  $\hat\alpha(x)\geq\alpha_{i-1}(x)=\alpha_{i}(x)$. Seulement si $\alpha_i(x)>\alpha_{i-1}(x)$ partout l'égalité à $0$ de la dérivée doit être satisfaite. Il s'agit d'une inégalité variationnelle.
+    Dans tous les points $x$ où $\alpha_i(x)=\alpha_{i-1}(x)$, $\beta(x)=\hat\alpha(x)-\alpha_i(x)\geq 0$, car on  doit avoir  $\hat\alpha(x)\geq\alpha_{i-1}(x)=\alpha_{i}(x)$. Seulement si $\alpha_i(x)>\alpha_{i-1}(x)$ partout, l'égalité à $0$ de la dérivée doit être satisfaite. Il s'agit d'une \textit{inégalité variationnelle}.
 
 \end{solution} 
 \question
@@ -263,7 +267,7 @@ Calculer les dérivées directionnelles $D_u\mathcal{E}(u_i,{\alpha_i})(v)$ et  
      =
      \int_0^L\left( \frac{E_0S}{2}\left(\frac{d u}{dx}\right)^2\dfrac{d a}{d\alpha}\beta
      +
-     w_1\dfrac{w a}{d\alpha}\beta
+     w_1\dfrac{dw}{d\alpha}\beta
      +
      2w_1\ell^2\frac{d \alpha}{dx}\frac{d \beta}{dx}\right)
      \,\mathrm{d}x
@@ -286,12 +290,15 @@ où $\sigma$, indépendant de $x$, représente la valeur de la contrainte dans l
     Voir première partie du TD.
 \end{solution}
 
-    \question Montrez  que, en supposant les solutions assez régulières, la condition d'optimalité du premier ordre par rapport à $\alpha$ est vérifiée si et seulement si, pour $x\in(0,L)$ implique que 
+    \question Montrer que, en supposant les solutions assez régulières, la condition d'optimalité du premier ordre par rapport à $\alpha$ est vérifiée si et seulement si, pour $x\in(0,L)$ on a: 
     \begin{equation}
         \dfrac{E_0\,a'(\alpha_i)}{2}\left(\frac{du_i}{dx}\right)^2+\left(w'(\alpha_i) -2 \ell^2\frac{d^2\alpha_i}{dx^2}\right)\,w_1 \geq{0}
         \label{eq:critere}
     \end{equation}
-    On peut montrez aussi qu'où $\alpha_i >\alpha_{i-1}$ la condition ci-dessus doit être satisfaite comme une égalité. On conclut que les conditions d'optimalité par rapport à $\alpha$ ont la suivante écriture en forme forte (qu'on ne demande pas de démontrer ici):
+    
+    
+    On peut également montrer que la condition ci-dessus doit être satisfaite comme une égalité pour les points où $\alpha_i >\alpha_{i-1}$. On conclut que les conditions d'optimalité par rapport à $\alpha$ ont l'écriture suivante sous
+    forme forte (qu'on ne demande pas de démontrer ici):
 \begin{subequations}
     \begin{align}
     \alpha_i-\alpha_{i-1}&\geq0,\\
@@ -319,25 +326,25 @@ où $\sigma$, indépendant de $x$, représente la valeur de la contrainte dans l
 \end{subequations}
 \begin{solution}
 
-    L'intégration par partie de la dérivée premiere par rapport à $\alpha$ donne 
+    L'intégration par partie de la dérivée première par rapport à $\alpha$ donne 
     $$
      \int_0^L\left( \frac{E_0S}{2}\left(\frac{d u}{dx}\right)^2\dfrac{d a}{d\alpha}
      +
-     w_1\dfrac{w a}{d\alpha}\
+     w_1\dfrac{dw}{d\alpha}\
      -
      2w_1\ell^2\frac{d^2 \alpha}{dx^2}\right)\beta
      \,\mathrm{d}x
      +
      2w_1\ell^2\left.\frac{d \alpha}{dx}\beta\right\vert_0^L\geq 0$$
-    En prenant toutes les possibles variations $\beta\geq 0$ telles que $\beta(0)=\beta(L)=0$ on trouve
+    En prenant toutes les variations possibles $\beta\geq 0$ telles que $\beta(0)=\beta(L)=0$, on trouve
     $$
     \frac{E_0S}{2}\left(\frac{d u}{dx}\right)^2\dfrac{d a}{d\alpha}
      +
-     w_1\dfrac{w a}{d\alpha}\
+     w_1\dfrac{dw}{d\alpha}\
      -
      2w_1\ell^2\frac{d^2 \alpha}{dx^2}\geq 0
     $$
-    Dans les ensembles où $\alpha_i(x)>\alpha_{i-1}(x)$, on peut prendre aussi des variations négatives, ce qui implique qu'on doit avoir égalité à 0 pour l'expression précédente. Un raisonnement similaire, qu'on réproduce pas ici est possible pour les termes de bords.
+    Aux points $x$ où $\alpha_i(x)>\alpha_{i-1}(x)$, on peut prendre aussi des variations négatives, ce qui implique qu'on doit avoir égalité à 0 pour l'expression précédente. Un raisonnement similaire, qu'on ne reproduit pas ici est possible pour les termes de bords.
 \end{solution}
 \end{questions}
 \section{Endommagement: solution homogène}
@@ -363,7 +370,7 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
       \end{cases}
       $$
     \end{solution}
-    \question On suppose que l'état d'endommagement initial est $\alpha_0=0$. Montrez que la solution reste élastique ($\alpha_t=0$) pour $\sigma_t<\sigma_e:=\bar\sigma(0)$
+    \question On suppose que l'état d'endommagement initial est $\alpha_0=0$. Montrer que la solution reste élastique ($\alpha_t=0$) pour $\sigma_t<\sigma_e:=\bar\sigma(0)$.
     Déterminer $\sigma_e$ pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$.
 \begin{solution}
     A cause de la condition de complémentarité du critère d'endommagement, si $\sigma_i<\sigma(\alpha_0)$, alors $\alpha_i=\alpha_{i-1}=0$. 
@@ -375,7 +382,7 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
    \end{cases}
     $$ 
 \end{solution}
-      \question Pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$ en~\eqref{eq:AT-models}, déterminer la contrainte maximale supportable 
+      \question \jb{Ne pas faire cette question ?} Pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$ en~\eqref{eq:AT-models}, déterminer la contrainte maximale supportable 
        $$\sigma_M=\max_{\alpha\in[0,1]}\bar\sigma(\alpha)
        $$
        et les valeurs de l'endommagement pour lesquels les modèles est durcissant/adoucissant en contraintes (\emph{stress hardening/softening}).
@@ -408,7 +415,7 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
     $\mathsf{AT_2}$ est adoucissant pour tout $\alpha >1/2$ et durcissant pour $\alpha <1/2$.    
       \end{solution}
 
-      \question Les figures ci-dessous donnent l'évolution de l'endommagement et de la contrainte $\sigma$ avec $t$   pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$ oour un chargement monotone croissant $t$ à partir d'un état initial $\alpha_0=0$.
+      \question Les figures ci-dessous donnent l'évolution de l'endommagement et de la contrainte $\sigma$ avec $t$   pour les deux modèles pour un chargement monotone croissant $t$ à partir d'un état initial $\alpha_0=0$.
 
       {
           \centering
@@ -419,8 +426,9 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
         %  \label{fig:response-homogene}
         %\end{figure}
         
-     Montrez que les réponses $\sigma-t$ sont cohérentes avec les réponses precedentes.
-      Marquez dans ces graphes les expressions de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquez les zones à régime durcissant/adoucissant en contraintes. 
+     Montrer que les réponses $\sigma-t$ sont cohérentes avec les réponses précédentes.
+      Marquer dans ces graphes les expressions de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquer les zones à régime durcissant/adoucissant en contraintes. 
+      \jb{Sans faire la question précédente, je mettrai plutôt. Indiquer à quel modèle correspond chaque courbe et identifier les zones à régime durcissant/adoucissant en contraintes. Que vaut la contrainte maximale $\sigma_M$ pour le modèle $\mathsf{AT_1}$ ?}
 %\end{questions}
 
 \section{Endommagement : solutions localisées}
@@ -435,14 +443,14 @@ avec $x_0$ et $D$ tels que $0<x_0\pm D/2<L$.
 Les solutions de ce type pour lesquels  $\max_x\alpha(x)=1$,  donc $\sigma=0$, sont assimilables à une approximation diffuse des fissures dans le modèle d'endommagement. 
 On peut identifier la ténacité  effective du modèle d'endommagement, énergie dissipée pour la création d'une fissure, avec l'énergie dissipée dans ce type de solutions :
 $$
-\tilde G_c=w_1\int_{x_0-D/2}^{x_0+D/2}w(\alpha(x))+\ell^2\left(\frac{d\alpha}{dx}\right)^2\,dx
+\tilde G_c=w_1\int_{x_0-D/2}^{x_0+D/2}\left(w(\alpha(x))+\ell^2\left(\frac{d\alpha}{dx}\right)^2\right)\,dx
 $$
-\question Montrer que les solutions doivent vérifier l'intégrale première suivante :
+\question \jb{Ne pas faire cette question ?} Montrer que les solutions doivent vérifier l'intégrale première suivante :
               $$
               \frac{E_0}{2w_1}(s(\alpha)-s(0))\,{\sigma^2}+w(\alpha)=\left(\frac{d\alpha}{dx}\right)^2\ell^2
               $$
             \begin{solution}
-                On multiplie le critère en contraintes par $\alpha'(x)$ et on integre entre $0$ et $L$ en tenant en compte que pour les solutions qu'on cherche soit $\alpha'(x)=0$ soit le critère est satisfait comme une égalité
+                On multiplie le critère en contraintes par $\alpha'(x)$ et on intègre entre $0$ et $L$ en tenant en compte que pour les solutions qu'on cherche soit $\alpha'(x)=0$ soit le critère est satisfait comme une égalité
             $$
                 -
                 \dfrac{\sigma^2}{2E_0}\frac{ds(\alpha)}{d\alpha}\frac{d\alpha}{dx}
@@ -465,39 +473,57 @@ $$
             La valeur de la constante est déterminée en évaluant cette intégrale première dans la partie où $\alpha(x)=0$. On trouve $c=- \frac{\sigma^2}{2E_0}s(0)$.
             \end{solution}
     
-	\question On cherche des solutions où la contrainte est nulle, avec $\sigma=
+	\question \label{q:integrale-premiere} On cherche des solutions où la contrainte est nulle, avec $\sigma=
     0$ et
      $\alpha(x_0)=1$. %, voir Figure~\ref{atkhom}(droite). 
-     Montrer que  $\alpha'(x_0\pm D/2)=0$.
-     Déterminer le profil d'endommagement respectant ces conditions pour le modèle $\mathsf{AT}_1$.
+     Montrer que  $w(\alpha) -
+                 \ell^2\left(\frac{d\alpha}{dx}\right)^2$ est une constante par rapport à $x$, puis que cette constante est nulle. En déduire que $\alpha'(x_0\pm D/2)=0$.
+                 \begin{solution}
+                 Le critère d'endommagement à contrainte nulle s'écrit:
+                 $$
+                 \left(w'(\alpha)
+                -
+                2 \ell^2\frac{d^2\alpha}{dx^2}\right)\,w_1
+                =0
+                 $$
+                 où l'égalité au lieu de l'inégalité provient du fait qu'on cherche une solution où, soit $\alpha'(x)=0$ (en dehors de la zone de localisation), soit $\alpha'(x)>0$ dans la zone de localisation. En multipliant par $\alpha'(x)$, on voit que:
+                 $$ 
+                 w'(\alpha)\frac{d\alpha}{dx}
+                -
+                2 \ell^2\frac{d^2\alpha}{dx^2}\frac{d\alpha}{dx} = \dfrac{d}{dx}\left(w(\alpha) -
+                 \ell^2\left(\frac{d\alpha}{dx}\right)^2\right) = 0
+                 $$
+				Ainsi $w(\alpha) -
+                 \ell^2\left(\frac{d\alpha}{dx}\right)^2$ est une constante. Celle-ci vaut 0 en évaluant l'expression dans la zone où $\alpha=0$. On a donc bien $\alpha'(x_0\pm D/2)=0$ en évaluant encore une fois cette expression en $x_0\pm D/2$.
+                 \end{solution}
+     \question Déterminer le profil d'endommagement respectant ces conditions pour le modèle $\mathsf{AT}_1$.
            \begin{solution}
-            $\alpha'(x_0\pm D/2)=0$ est une conséquence de l'intégrale première calculée en $x_0\pm D/2$.
             Le critère d'endommagement doit être vérifié comme une égalité dans la partie où l'endommagement est positif.
                Pour $\mathsf{AT}_1$
                $$
-               \frac{d\alpha(x)^2}{dx^2}=\frac{1}{\ell^2}
+               \frac{d^2\alpha(x)}{dx^2}=\frac{1}{2\ell^2}
                $$
             En intégrant avec les conditions initiales $\alpha(x_0-D/2)=0$,
                $\alpha'(x_0-D/2)=0$, on trouve
                $$
-               \alpha(x)=\frac{((x-x_0)-D/2))^2}{2\ell^2}
+               \alpha(x)=\frac{((x-x_0)-D/2))^2}{4\ell^2}
                $$
                En imposant $\alpha(x_0)=1$ on trouve
                $$
-               D=2\sqrt{2}\ell
+               D=4\ell
                $$
                On peut refaire le même raisonnement à partir de $x_0+D/2$. Le profil est symétrique par rapport à $x_0$.
                
            \end{solution}
     
- \question En utilisant l'intégrale première ci-dessus, montrez que 
+ \question En utilisant le résultat de la question \ref{q:integrale-premiere}, montrer que 
  $$
  \tilde G_c=c_w{w_1\ell},\text{ avec }c_w=4\,\int_0^1\sqrt{w
  (\alpha)}d\alpha.
  $$
  et calculer $c_w$ pour les modèles $\mathsf{AT}_1$ et $\mathsf{AT}_2$.
  \begin{solution}
- L'intégrale première pour $\sigma=0$ donne
+ On rappelle qu'on a montré que:
  $$
  w(\alpha)=\left(\frac{d\alpha}{dx}\right)^2\ell^2
  $$
@@ -534,6 +560,7 @@ $$
             \mathsf{AT_2}:& \frac{G_c}{2\ell}\\
           \end{cases}
           $$
+          qui représente donc la densité locale d'énergie de dissipation du modèle d'endommagement local associé. On trouve donc que cette densité volumique varie en $G_c/\ell$ pour donner des solutions localisées 1D à énergie de dissipation indépendantes de $\ell$.
 	      %et  que la limite d'élasticité de la barre est donnée par
 	      %$$\sigma_c= \sqrt{\dfrac{3\,G_cE_0}{8\,\ell}}$$
           \end{solution}
@@ -543,7 +570,7 @@ $$
     
     Étant donné les propriétés matérielles du béton : $E_0=30\,
     \mathrm{GPa}$, $G_c =50 \mathrm{N/m}$,  $\sigma_c = 4 \mathrm{MPa}$
-    déterminer la valeur numérique de $\ell$ pour le modèle $\mathsf{AT_1}$.
+    déterminer la valeur numérique de $\ell$ pour le modèle $\mathsf{AT_1}$. Que peut-on conclure quant à la taille caractéristique des structures que l'on peut modéliser avec un tel modèle ?
     \begin{solution}
         En identifiant $\sigma_c$ avec $\sigma_M$ on a
 $$
@@ -558,7 +585,7 @@ $$
         \ell=\frac{27}{256}\frac{G_cE_0}{\sigma_c^2}
     \end{cases}
 $$
-Pour le beton on trouve  $\ell=3.5$cm pour $\mathsf{AT_1}$ et $1.0984922$cm $\mathsf{AT_2}$.
+Pour le béton on trouve  $\ell=3.5$cm pour $\mathsf{AT_1}$ et $1.0984922$cm $\mathsf{AT_2}$. On en déduit donc que l'utilisation de ces modèles pour le béton ne pourra conduire à des régularisation du modèle de Griffith que dans des situations où la taille caractéristique $L$ de la structure est très grande devant $\ell$. $L$ est donc typiquement de l'ordre du mètre, il n'est pas possible d'utiliser un tel modèle en conservant $\sigma_M=\sigma_c$ pour des échantillons de laboratoire de la taille du centimètre.
     \end{solution}
 
  %   \newline\underline{\textbf{Réponse 8:}}\vskip 5cm
