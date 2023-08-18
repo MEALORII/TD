@@ -7,7 +7,6 @@
 \graphicspath{{./pic/}}
 \usepackage{float}
 
-\newcommand{\todo}[1]{\textbf{\textcolor{red}{[ToDo: #1]}}}
 \begin{document}
 \thispagestyle{empty}
 \titre{3}{Rupture ductile : homogénéisation de matériaux poreux}{Jérémy Hure, Djimédo Kondo, Jérémy Bleyer}
@@ -288,22 +287,22 @@ On constate que le critère obtenu est anisotrope, plus précisément, isotrope 
 \section{Etude du critère}
 L'Eq.~\eqref{eq4} correspond au critère de plasticité pour le matériau poreux recherché, dont il convient de vérifier la pertinence en étudiant les cas limites.\\
 
+La figure \ref{fig:Gurson_crit} trace le critère dans le plan $(\Sigma_\ell, \Sigma_{zz} - \Sigma_\ell)$ pour différentes valeurs de porosité.
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Gurson_cylinder_UC}
+\end{center}
+\caption{Critère de Gurson dans le plan $(\Sigma_\ell, \Sigma_{zz} - \Sigma_\ell)$ pour différentes valeurs de porosité. En noir pointillés: le critère de von Mises de la matrice. En couleurs pointillées: les estimations de la section 2; Symboles: simulations sur une cellule élémentaire maillée.}
+\label{fig:Gurson_crit}
+\end{figure}
+
 \begin{questions}
 \question Que devient l'Eq.~\eqref{eq4} dans la limite $f \to 0$ ? Et dans la limite $f \to 1$ ?
 \begin{solution}
 Lorsque $f\to 0$, il n'y a plus de pore et on retombe sur le critère de von Mises de la matrice. \`A la limite $f\to 1$, compte-tenu du fait que $\cosh(x)\geq 1$, on constate qu'il n'est plus possible de vérifier le critère sauf si $\tSigma=0$.
 Cela est cohérent avec les deux estimations précédentes qui dégénèrent lorsque $f\to 1$.
 \end{solution}
-
-La figure \ref{fig:Gurson_crit} trace le critère dans le plan $(\Sigma_\ell, \Sigma_{zz} - \Sigma_\ell)$ pour différentes valeurs de porosité.
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.5\textwidth]{Gurson_cylinder}
-\end{center}
-\caption{Critère de Gurson dans le plan $(\Sigma_\ell, \Sigma_{zz} - \Sigma_\ell)$ pour différentes valeurs de porosité. En noir pointillés: le critère de von Mises de la matrice. En couleurs pointillées: les estimations de la section 2.}
-\label{fig:Gurson_crit}
-\end{figure}
 
 Le critère de plasticité obtenu doit être accompagné d'une loi d'écoulement, de la même manière que pour la plasticité de von Mises (Eq.~\ref{eq200}). Hill \cite{hill}, puis Rice \cite{rice} et enfin Gurson \cite{gurson} dans le cas des matériaux poreux , ont montré, grâce au principe de dissipation maximale, que la loi de normalité est conservée au niveau macroscopique lors du changement d'échelle. On a donc:
 
