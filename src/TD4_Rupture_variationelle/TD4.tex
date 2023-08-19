@@ -1,7 +1,7 @@
 %% Do not edit unless you really know what you are doing.
 \documentclass[french,english,12pt]{exam}
 
-\printanswers
+%\printanswers
 
 \usepackage{tikz}
 
@@ -382,9 +382,9 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
    \end{cases}
     $$ 
 \end{solution}
+\begin{comment}
       \question \jb{Ne pas faire cette question ?} Pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$ en~\eqref{eq:AT-models}, déterminer la contrainte maximale supportable 
-       $$\sigma_M=\max_{\alpha\in[0,1]}\bar\sigma(\alpha)
-       $$
+       $$\sigma_M=\max_{\alpha\in[0,1]}\bar\sigma(\alpha)$$
        et les valeurs de l'endommagement pour lesquels les modèles est durcissant/adoucissant en contraintes (\emph{stress hardening/softening}).
       % ----------
       \begin{solution}
@@ -414,6 +414,7 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
     $\mathsf{AT_1}$ est adoucissant pour tout $\alpha >0$.\newline
     $\mathsf{AT_2}$ est adoucissant pour tout $\alpha >1/2$ et durcissant pour $\alpha <1/2$.    
       \end{solution}
+\end{comment}  
 
       \question Les figures ci-dessous donnent l'évolution de l'endommagement et de la contrainte $\sigma$ avec $t$   pour les deux modèles pour un chargement monotone croissant $t$ à partir d'un état initial $\alpha_0=0$.
 
@@ -425,10 +426,11 @@ On cherche à présent les solutions à endommagement homogène en espace, en fo
         %  \caption{Réponse en contrainte $\sigma$ en fonction du chargement $t$ monotone croissant pour les modèles $\mathsf{AT_1}$ et $\mathsf{AT_2}$.}
         %  \label{fig:response-homogene}
         %\end{figure}
-        
-     Montrer que les réponses $\sigma-t$ sont cohérentes avec les réponses précédentes.
-      Marquer dans ces graphes les expressions de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquer les zones à régime durcissant/adoucissant en contraintes. 
-      \jb{Sans faire la question précédente, je mettrai plutôt. Indiquer à quel modèle correspond chaque courbe et identifier les zones à régime durcissant/adoucissant en contraintes. Que vaut la contrainte maximale $\sigma_M$ pour le modèle $\mathsf{AT_1}$ ?}
+
+        Indiquer à quel modèle correspond chaque courbe et identifier les zones à régime durcissant/adoucissant en contraintes. Que vaut la contrainte maximale $\sigma_M$ pour le modèle $\mathsf{AT_1}$ ?
+     %Montrer que les réponses $\sigma-t$ sont cohérentes avec les réponses précédentes.
+     % Marquer dans ces graphes les expressions de contraintes maximales $\sigma_M$, de la contrainte limite d'élasticité $\sigma_e$ et des valeurs correspondantes de $t$. Marquer les zones à régime durcissant/adoucissant en contraintes. 
+     % \jb{Sans faire la question précédente, je mettrai plutôt.}
 %\end{questions}
 
 \section{Endommagement : solutions localisées}
@@ -445,6 +447,7 @@ On peut identifier la ténacité  effective du modèle d'endommagement, énergie
 $$
 \tilde G_c=w_1\int_{x_0-D/2}^{x_0+D/2}\left(w(\alpha(x))+\ell^2\left(\frac{d\alpha}{dx}\right)^2\right)\,dx
 $$
+\begin{comment}
 \question \jb{Ne pas faire cette question ?} Montrer que les solutions doivent vérifier l'intégrale première suivante :
               $$
               \frac{E_0}{2w_1}(s(\alpha)-s(0))\,{\sigma^2}+w(\alpha)=\left(\frac{d\alpha}{dx}\right)^2\ell^2
@@ -472,7 +475,7 @@ $$
             $$
             La valeur de la constante est déterminée en évaluant cette intégrale première dans la partie où $\alpha(x)=0$. On trouve $c=- \frac{\sigma^2}{2E_0}s(0)$.
             \end{solution}
-    
+\end{comment}
 	\question \label{q:integrale-premiere} On cherche des solutions où la contrainte est nulle, avec $\sigma=
     0$ et
      $\alpha(x_0)=1$. %, voir Figure~\ref{atkhom}(droite). 
