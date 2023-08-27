@@ -1,7 +1,7 @@
 %% Do not edit unless you really know what you are doing.
 \documentclass[french,english,12pt]{exam}
 
-%\printanswers
+\printanswers
 
 \usepackage{tikz}
 
@@ -256,7 +256,6 @@ Il s'agit d'un système couplé d'une équation variationnelle pour $u$ (équili
 \question
 Calculer les dérivées directionnelles $D_u\mathcal{E}(u_i,{\alpha_i})(v)$ et  $D_\alpha\mathcal{E}(u_i,{\alpha_i})(\beta)$.
 \begin{solution}
-     Il s'agit d'une inégalité variationnelle
      $$
      D_v\mathcal{E}(u_i,{\alpha_i})(v)
      =
@@ -282,7 +281,7 @@ Calculer les dérivées directionnelles $D_u\mathcal{E}(u_i,{\alpha_i})(v)$ et  
     En reprenant les raisonnements de la section 1, on peut montrer que la condition d'optimalité du premier ordre par rapport à $u$ est équivalente aux conditions d'équilibre suivantes :
 \begin{equation}
     \dfrac{d\sigma}{dx}(x) = 0, \; \forall x\in(0,L),\quad \text{avec}\quad
-    \sigma = E_0 \,a(\alpha(x))  \left(\dfrac{du}{dx}(x)+t\right), \
+    \sigma = E_0 \,a(\alpha(x))  \left(\dfrac{du}{dx}(x)\right), \
     \label{eq:equilibre}
 \end{equation}
 où $\sigma$, indépendant de $x$, représente la valeur de la contrainte dans la barre.\\
@@ -588,7 +587,7 @@ $$
         \ell=\frac{27}{256}\frac{G_cE_0}{\sigma_c^2}
     \end{cases}
 $$
-Pour le béton on trouve  $\ell=3.5$cm pour $\mathsf{AT_1}$ et $1.0984922$cm $\mathsf{AT_2}$. On en déduit donc que l'utilisation de ces modèles pour le béton ne pourra conduire à des régularisation du modèle de Griffith que dans des situations où la taille caractéristique $L$ de la structure est très grande devant $\ell$. $L$ est donc typiquement de l'ordre du mètre, il n'est pas possible d'utiliser un tel modèle en conservant $\sigma_M=\sigma_c$ pour des échantillons de laboratoire de la taille du centimètre.
+Pour le béton on trouve  $\ell=3.5$cm pour $\mathsf{AT_1}$ et $1.01$cm $\mathsf{AT_2}$. On en déduit donc que l'utilisation de ces modèles pour le béton ne pourra conduire à des régularisation du modèle de Griffith que dans des situations où la taille caractéristique $L$ de la structure est très grande devant $\ell$. $L$ est donc typiquement de l'ordre du mètre, il n'est pas possible d'utiliser un tel modèle en conservant $\sigma_M=\sigma_c$ pour des échantillons de laboratoire de la taille du centimètre.
     \end{solution}
 
  %   \newline\underline{\textbf{Réponse 8:}}\vskip 5cm
